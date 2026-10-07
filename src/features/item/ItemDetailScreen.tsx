@@ -124,6 +124,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({
           <RiskTierBadge tier={item.riskTier} />
         </div>
       </div>
+    </div>
 
       {/* 2. Main Details Sheet */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 space-y-6 mt-4 relative z-10 shadow-card border border-slate-200/80">
