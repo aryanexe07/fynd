@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
 import { useAppState } from '../../services/stateContext';
 import { CAMPUS_LOCATIONS } from '../../services/mockData';
-import { Item, ItemCategory, RiskTier } from '../../types';
+import { Item } from '../../types';
 import { StatusBadge, RiskTierBadge } from '../../components/common/Badge';
 import {
   Search,
-  Filter,
+  SlidersHorizontal,
   MapPin,
   Clock,
   ArrowRight,
-  SlidersHorizontal,
   X,
-  Laptop,
-  Briefcase,
-  Key,
-  CreditCard,
-  Shirt,
-  BookOpen,
-  Sparkles
+  Map,
+  Filter
 } from 'lucide-react';
 
 interface SearchScreenProps {
@@ -25,32 +19,30 @@ interface SearchScreenProps {
 }
 
 export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
-  const { items, matches } = useAppState();
+  const { items } = useAppState();
 
   const [query, setQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'lost' | 'found'>('all');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [filterLocation, setFilterLocation] = useState<string>('all');
-  const [filterRiskTier, setFilterRiskTier] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
 
   const filteredItems = items.filter((item) => {
-    // Exclude recovered from active search unless typed
     if (item.status === 'recovered' && !query.trim()) return false;
 
     if (filterType !== 'all' && item.type !== filterType) return false;
     if (filterCategory !== 'all' && item.category !== filterCategory) return false;
     if (filterLocation !== 'all' && item.locationId !== filterLocation) return false;
-    if (filterRiskTier !== 'all' && item.riskTier.toString() !== filterRiskTier) return false;
 
     if (query.trim()) {
       const q = query.toLowerCase();
-      const matchTitle = item.title.toLowerCase().includes(q);
-      const matchBrand = item.brand?.toLowerCase().includes(q);
-      const matchDesc = item.publicDescription.toLowerCase().includes(q);
-      const matchLoc = item.locationName.toLowerCase().includes(q);
-      const matchColor = item.color?.toLowerCase().includes(q);
-      if (!matchTitle && !matchBrand && !matchDesc && !matchLoc && !matchColor) return false;
+      const match =
+        item.title.toLowerCase().includes(q) ||
+        item.brand?.toLowerCase().includes(q) ||
+        item.publicDescription.toLowerCase().includes(q) ||
+        item.locationName.toLowerCase().includes(q) ||
+        item.color?.toLowerCase().includes(q);
+      if (!match) return false;
     }
 
     return true;
@@ -67,51 +59,44 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
     setFilterType('all');
     setFilterCategory('all');
     setFilterLocation('all');
-    setFilterRiskTier('all');
   };
 
   return (
-    <div className="space-y-6 pb-24 animate-fade-in">
-      {/* Header */}
+    <div className="space-y-5 pb-24 max-w-5xl mx-auto animate-fade-in">
+      {/* Search Header */}
       <div>
-        <h1 className="font-display font-bold text-2xl sm:text-3xl text-white">Campus Item Directory</h1>
-        <p className="text-xs text-slate-400 mt-1">
-          Search active Lost & Found listings with structured campus filters
+        <h1 className="font-display font-bold text-2xl text-slate-900">Campus Directory</h1>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Find items across all campus zones with structured filters
         </p>
       </div>
 
-      {/* Main Search Bar & Quick Toggles */}
-      <div className="glass-panel rounded-2xl p-4 border border-emerald-500/25 space-y-3">
-        <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-400" />
+      {/* Search Box & Controls */}
+      <div className="card-clean p-4 space-y-3">
+        <div className="relative flex items-center bg-slate-50 rounded-2xl border border-slate-200 px-3.5 py-2.5">
+          <Search className="w-4 h-4 text-slate-400 mr-2.5 shrink-0" />
           <input
             type="text"
-            placeholder="Search keywords, brand, color, model (e.g. Sony, Hydro Flask, AirPods, Calculator)..."
+            placeholder="Search keywords, brand, color (e.g. Sony, Bellroy, Hydro Flask)..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-3 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-lime-400"
+            className="w-full text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none"
           />
           {query && (
-            <button
-              onClick={() => setQuery('')}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
-            >
+            <button onClick={() => setQuery('')} className="text-slate-400 hover:text-slate-600">
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        {/* Filter Controls Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
-          {/* Type Toggle */}
+        {/* Filter Row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Report Type
-            </label>
+            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Type</label>
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value as any)}
-              className="w-full px-3 py-1.5 rounded-lg bg-emerald-950/90 border border-emerald-500/20 text-xs text-slate-200 focus:outline-none focus:border-lime-400"
+              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 font-medium focus:outline-none focus:border-forest-600"
             >
               <option value="all">Lost & Found</option>
               <option value="lost">Lost Only</option>
@@ -119,15 +104,12 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             </select>
           </div>
 
-          {/* Category */}
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Category
-            </label>
+            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Category</label>
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-emerald-950/90 border border-emerald-500/20 text-xs text-slate-200 focus:outline-none focus:border-lime-400"
+              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 font-medium focus:outline-none focus:border-forest-600"
             >
               <option value="all">All Categories</option>
               <option value="electronics">Electronics</option>
@@ -140,17 +122,14 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             </select>
           </div>
 
-          {/* Campus Location */}
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Location
-            </label>
+            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Location</label>
             <select
               value={filterLocation}
               onChange={(e) => setFilterLocation(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-emerald-950/90 border border-emerald-500/20 text-xs text-slate-200 focus:outline-none focus:border-lime-400"
+              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 font-medium focus:outline-none focus:border-forest-600"
             >
-              <option value="all">All Campus Zones</option>
+              <option value="all">All Zones</option>
               {CAMPUS_LOCATIONS.map((loc) => (
                 <option key={loc.id} value={loc.id}>
                   {loc.zone}
@@ -159,15 +138,12 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             </select>
           </div>
 
-          {/* Sort By */}
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Sort By
-            </label>
+            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Sort</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="w-full px-3 py-1.5 rounded-lg bg-emerald-950/90 border border-emerald-500/20 text-xs text-slate-200 focus:outline-none focus:border-lime-400"
+              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 font-medium focus:outline-none focus:border-forest-600"
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
@@ -176,29 +152,23 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
         </div>
       </div>
 
-      {/* Results Header */}
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-slate-300">
-          Showing <span className="text-lime-400 font-bold">{sortedItems.length}</span> results
+      {/* Results Meta */}
+      <div className="flex items-center justify-between text-xs">
+        <span className="font-semibold text-slate-600">
+          Showing <span className="font-bold text-forest-900">{sortedItems.length}</span> items
         </span>
         {(query || filterType !== 'all' || filterCategory !== 'all' || filterLocation !== 'all') && (
-          <button
-            onClick={clearFilters}
-            className="text-xs text-emerald-400 hover:text-lime-300 font-semibold"
-          >
-            Clear all filters
+          <button onClick={clearFilters} className="font-bold text-forest-700 hover:text-forest-900">
+            Reset Filters
           </button>
         )}
       </div>
 
-      {/* Results List / Cards */}
+      {/* Grid */}
       {sortedItems.length === 0 ? (
-        <div className="rounded-2xl glass-card p-12 text-center border border-emerald-500/20">
-          <Search className="w-10 h-10 text-emerald-400/50 mx-auto mb-3" />
-          <h3 className="font-display font-bold text-lg text-white">No items matching criteria</h3>
-          <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-            Try loosening your filters or search keywords.
-          </p>
+        <div className="rounded-3xl bg-white p-12 text-center border border-slate-100 shadow-soft">
+          <h4 className="font-display font-bold text-base text-slate-800">No items match your criteria</h4>
+          <p className="text-xs text-slate-500 mt-1">Try loosening your search query.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -206,10 +176,10 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             <div
               key={item.id}
               onClick={() => onSelectItem(item)}
-              className="rounded-2xl glass-card p-4 border border-emerald-500/20 hover:border-lime-400/50 cursor-pointer flex flex-col justify-between group transition-all"
+              className="card-clean p-3.5 cursor-pointer flex flex-col justify-between group"
             >
               <div>
-                <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-900 mb-3 border border-emerald-500/10">
+                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 mb-3 border border-slate-100">
                   <img
                     src={item.imageUrls[0]}
                     alt={item.title}
@@ -217,8 +187,8 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
                   />
                   <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                     <span
-                      className={`px-2.5 py-0.5 rounded-md text-[11px] font-extrabold uppercase tracking-wider ${
-                        item.type === 'lost' ? 'bg-amber-400 text-slate-950' : 'bg-emerald-400 text-slate-950'
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                        item.type === 'lost' ? 'bg-amber-400 text-slate-950' : 'bg-emerald-500 text-white'
                       }`}
                     >
                       {item.type}
@@ -230,38 +200,31 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
                   </div>
                 </div>
 
-                <h4 className="font-display font-bold text-base text-white group-hover:text-lime-300 transition-colors line-clamp-1">
+                <h4 className="font-display font-bold text-sm sm:text-base text-slate-900 group-hover:text-forest-700 transition-colors line-clamp-1">
                   {item.title}
                 </h4>
 
                 {item.brand && (
-                  <div className="text-xs font-semibold text-emerald-400/90 mt-0.5">
+                  <div className="text-xs font-semibold text-forest-700 mt-0.5">
                     {item.brand} {item.color && `• ${item.color}`}
                   </div>
                 )}
 
-                <p className="text-xs text-slate-300 mt-2 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
                   {item.publicDescription}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-emerald-500/15 space-y-2">
-                <div className="flex items-center gap-2 text-[11px] text-slate-400">
-                  <MapPin className="w-3.5 h-3.5 text-lime-400 shrink-0" />
-                  <span className="truncate">{item.locationName}</span>
+              <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <div className="flex items-center gap-1 truncate max-w-[170px]">
+                  <MapPin className="w-3.5 h-3.5 text-forest-600 shrink-0" />
+                  <span className="truncate text-[11px]">{item.locationName}</span>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>{new Date(item.incidentDate).toLocaleDateString([], { month: 'short', day: 'numeric' })}</span>
-                  </div>
-
-                  <span className="text-xs font-bold text-emerald-400 group-hover:text-lime-300 flex items-center gap-1">
-                    <span>Inspect</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </span>
-                </div>
+                <span className="font-bold text-forest-700 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  <span>Inspect</span>
+                  <ArrowRight className="w-3 h-3" />
+                </span>
               </div>
             </div>
           ))}

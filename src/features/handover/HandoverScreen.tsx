@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { useAppState } from '../../services/stateContext';
-import { Item, Handover } from '../../types';
 import confetti from 'canvas-confetti';
 import {
   ArrowLeft,
   KeyRound,
   CheckCircle2,
-  QrCode,
   MapPin,
   ShieldCheck,
-  Sparkles,
-  AlertCircle,
   Copy,
-  Check
+  Check,
+  AlertCircle
 } from 'lucide-react';
 import { StatusBadge } from '../../components/common/Badge';
 
@@ -36,19 +33,16 @@ export const HandoverScreen: React.FC<HandoverScreenProps> = ({ itemId, onBack }
   if (!item || !handover) {
     return (
       <div className="max-w-xl mx-auto text-center py-16 space-y-4">
-        <h3 className="font-display font-bold text-xl text-white">No active handover record found</h3>
+        <h3 className="font-display font-bold text-xl text-slate-800">No active handover found</h3>
         <button
           onClick={onBack}
-          className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-900 border border-emerald-500/30 text-emerald-300"
+          className="px-5 py-2 rounded-full text-xs font-bold bg-forest-900 text-white"
         >
           Return
         </button>
       </div>
     );
   }
-
-  const isClaimant = handover.claimantId === currentUser.uid;
-  const isFinder = handover.finderId === currentUser.uid || currentUser.role === 'moderator';
 
   const handleVerifyCode = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +54,7 @@ export const HandoverScreen: React.FC<HandoverScreenProps> = ({ itemId, onBack }
         particleCount: 120,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#a3e635', '#10b981', '#ffffff', '#34d399'],
+        colors: ['#84cc16', '#059669', '#07281d', '#10b981'],
       });
     }
   };
@@ -72,38 +66,37 @@ export const HandoverScreen: React.FC<HandoverScreenProps> = ({ itemId, onBack }
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-24 animate-fade-in">
+    <div className="max-w-2xl mx-auto space-y-5 pb-24 animate-fade-in">
       <button
         onClick={onBack}
-        className="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/20"
+        className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-soft"
       >
-        <ArrowLeft className="w-3.5 h-3.5 text-lime-400" />
+        <ArrowLeft className="w-3.5 h-3.5 text-forest-700" />
         <span>Back</span>
       </button>
 
       {/* Main Handover Station Panel */}
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-emerald-500/25 space-y-6">
-        {/* Header */}
-        <div className="flex items-start justify-between pb-4 border-b border-emerald-500/20">
+      <div className="card-clean p-6 sm:p-8 space-y-5">
+        <div className="flex items-start justify-between pb-3 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-500 to-lime-400 text-slate-950 flex items-center justify-center font-bold shadow-glow-lime">
+            <div className="w-11 h-11 rounded-2xl bg-forest-900 text-lime-400 flex items-center justify-center font-bold shadow-md">
               <KeyRound className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="font-display font-bold text-2xl text-white">Safe Handover Station</h1>
-              <p className="text-xs text-lime-400">Step 5: Physical Return & Ownership Transfer</p>
+              <h1 className="font-display font-bold text-2xl text-slate-900">Safe Handover Station</h1>
+              <p className="text-xs text-forest-700 font-medium">Physical Return & Ownership Confirmation</p>
             </div>
           </div>
           <StatusBadge status={item.status} />
         </div>
 
         {/* Item Summary */}
-        <div className="p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/20 flex items-center gap-3.5">
+        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5">
           <img src={item.imageUrls[0]} alt={item.title} className="w-14 h-14 rounded-xl object-cover" />
           <div>
-            <h4 className="font-display font-bold text-base text-white">{item.title}</h4>
-            <div className="flex items-center gap-1.5 text-xs text-slate-300 mt-0.5">
-              <MapPin className="w-3.5 h-3.5 text-lime-400" />
+            <h4 className="font-display font-bold text-base text-slate-900">{item.title}</h4>
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
+              <MapPin className="w-3.5 h-3.5 text-forest-600" />
               <span>Meeting Point: {handover.locationName}</span>
             </div>
           </div>
@@ -111,96 +104,91 @@ export const HandoverScreen: React.FC<HandoverScreenProps> = ({ itemId, onBack }
 
         {handover.status === 'completed' || item.status === 'recovered' ? (
           /* Completed State */
-          <div className="rounded-2xl bg-gradient-to-r from-emerald-950 to-lime-950/80 p-8 border border-lime-400/40 text-center space-y-4 animate-fade-in shadow-glow-lime">
-            <div className="w-16 h-16 rounded-3xl bg-lime-400 text-slate-950 flex items-center justify-center mx-auto shadow-md">
+          <div className="rounded-3xl bg-forest-900 text-white p-8 text-center space-y-3 animate-fade-in shadow-card">
+            <div className="w-16 h-16 rounded-full bg-lime-400 text-forest-950 flex items-center justify-center mx-auto shadow-md">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            <div>
-              <h3 className="font-display font-extrabold text-2xl text-white">Item Officially Recovered!</h3>
-              <p className="text-xs text-slate-300 mt-1 max-w-sm mx-auto">
-                The handover confirmation code has been verified. The lifecycle for this case is now safely complete.
-              </p>
-            </div>
+            <h3 className="font-display font-extrabold text-2xl">Item Officially Recovered!</h3>
+            <p className="text-xs text-slate-200 max-w-sm mx-auto">
+              Handover code confirmed. The case lifecycle is complete and safely logged.
+            </p>
             <div className="pt-2">
               <button
                 onClick={onBack}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold bg-lime-400 text-slate-950 hover:bg-lime-300"
+                className="px-6 py-2.5 rounded-full text-xs font-bold bg-lime-400 text-forest-950 hover:bg-lime-300"
               >
                 Return to Campus Feed
               </button>
             </div>
           </div>
         ) : (
-          /* Handover Active State */
-          <div className="space-y-6">
-            {/* Claimant View: Show One-Time 6-Digit OTP */}
-            <div className="rounded-2xl bg-gradient-to-br from-emerald-950/80 via-black to-slate-950 p-6 border border-lime-400/40 text-center space-y-4 shadow-glow-lime">
-              <div className="flex items-center justify-center gap-2 text-xs font-bold text-lime-400 uppercase tracking-wider">
+          /* Active Handover View */
+          <div className="space-y-5">
+            {/* Claimant View: One-Time 6-Digit OTP Box */}
+            <div className="rounded-3xl bg-forest-900 text-white p-6 text-center space-y-3 shadow-card">
+              <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-lime-400 uppercase tracking-wider">
                 <ShieldCheck className="w-4 h-4" />
-                <span>One-Time Handover Verification Code</span>
+                <span>One-Time Handover Code</span>
               </div>
 
               <div className="flex items-center justify-center gap-2">
-                <div className="font-mono font-black text-4xl sm:text-5xl tracking-widest text-white bg-black/60 px-6 py-3 rounded-2xl border border-lime-400/30">
+                <div className="font-mono font-black text-4xl sm:text-5xl tracking-widest text-white bg-black/40 px-6 py-3 rounded-2xl border border-white/20">
                   {handover.handoverCode}
                 </div>
                 <button
                   onClick={handleCopyCode}
-                  className="p-3.5 rounded-2xl bg-emerald-950 border border-emerald-500/30 text-slate-300 hover:text-white"
-                  title="Copy Code"
+                  className="p-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white"
+                  title="Copy"
                 >
                   {copied ? <Check className="w-5 h-5 text-lime-400" /> : <Copy className="w-5 h-5" />}
                 </button>
               </div>
 
-              <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                Show this 6-digit code to the finder or Campus Safety officer at the meeting location to confirm exchange.
+              <p className="text-xs text-slate-300 max-w-sm mx-auto">
+                Show this 6-digit code to the finder or Campus Safety desk to confirm physical handover.
               </p>
             </div>
 
-            {/* Finder / Officer Confirmation Terminal */}
+            {/* Finder / Officer Confirmation Form */}
             <form
               onSubmit={handleVerifyCode}
-              className="p-5 rounded-2xl bg-black/40 border border-emerald-500/20 space-y-3"
+              className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3"
             >
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-slate-200">
-                  Finder / Moderator Verification Input
-                </label>
-                <span className="text-[10px] text-emerald-400 font-medium">Verify code from claimant</span>
-              </div>
+              <label className="block text-xs font-bold text-slate-800">
+                Finder / Moderator Verification Input
+              </label>
 
               <div className="flex gap-2">
                 <input
                   type="text"
                   maxLength={6}
-                  placeholder="Enter 6-digit OTP..."
+                  placeholder="Enter 6-digit code..."
                   value={enteredCode}
                   onChange={(e) => setEnteredCode(e.target.value)}
                   required
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm font-mono text-white tracking-wider focus:outline-none focus:border-lime-400"
+                  className="flex-1 px-4 py-2.5 rounded-2xl bg-white border border-slate-300 text-sm font-mono text-slate-900 tracking-wider focus:outline-none focus:border-forest-600 font-bold"
                 />
                 <button
                   type="submit"
                   disabled={enteredCode.length !== 6}
-                  className="px-5 py-2.5 rounded-xl text-xs font-extrabold bg-lime-400 text-slate-950 hover:bg-lime-300 disabled:opacity-40 transition-colors shadow-md"
+                  className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 disabled:opacity-40 shadow-sm"
                 >
-                  Confirm Return
+                  Confirm
                 </button>
               </div>
 
               {verificationFeedback && (
                 <div
-                  className={`p-3 rounded-xl text-xs font-semibold flex items-center gap-2 ${
+                  className={`p-3 rounded-2xl text-xs font-semibold flex items-center gap-2 ${
                     verificationFeedback.success
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                      : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                      : 'bg-rose-50 text-rose-800 border border-rose-200'
                   }`}
                 >
                   {verificationFeedback.success ? (
-                    <CheckCircle2 className="w-4 h-4" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   ) : (
-                    <AlertCircle className="w-4 h-4" />
+                    <AlertCircle className="w-4 h-4 text-rose-600" />
                   )}
                   <span>{verificationFeedback.message}</span>
                 </div>

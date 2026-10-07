@@ -3,18 +3,13 @@ import { useAppState } from '../../services/stateContext';
 import { CAMPUS_LOCATIONS } from '../../services/mockData';
 import { ItemCategory, RiskTier, Item } from '../../types';
 import {
-  PackagePlus,
-  Sparkles,
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
   Lock,
-  Camera,
-  ShieldCheck,
   AlertTriangle,
   FileCheck
 } from 'lucide-react';
-import { MatchBadge } from '../../components/common/Badge';
 
 interface ReportFoundScreenProps {
   onClose: () => void;
@@ -74,39 +69,40 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-      <div className="w-full max-w-2xl glass-panel rounded-3xl p-6 sm:p-8 border border-emerald-500/30 relative my-8">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+      <div className="w-full max-w-xl bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-2xl relative my-8">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20 mb-6">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-lime-400 text-slate-950 flex items-center justify-center font-bold shadow-glow-lime">
+            <div className="w-10 h-10 rounded-2xl bg-forest-900 text-lime-400 flex items-center justify-center font-bold shadow-sm">
               📦
             </div>
             <div>
-              <h2 className="font-display font-bold text-xl text-white">Report a Found Item</h2>
-              <p className="text-xs text-lime-400 font-medium">Controlled Campus Safe Handover</p>
+              <h2 className="font-display font-bold text-lg text-slate-900">Report a Found Item</h2>
+              <p className="text-xs text-forest-700 font-medium">Controlled Safe Handover</p>
             </div>
           </div>
 
           {step < 4 && (
-            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-300">
-              <span className="text-lime-400">Step {step}</span>
-              <span className="text-slate-600">/</span>
+            <div className="flex items-center gap-1 text-xs font-bold text-slate-400">
+              <span className="text-forest-900">Step {step}</span>
+              <span>/</span>
               <span>3</span>
             </div>
           )}
         </div>
 
+        {/* Step 1 */}
         {step === 1 && (
           <div className="space-y-4 animate-fade-in">
-            <h3 className="font-display font-semibold text-base text-white">Step 1: Found Item Basics</h3>
+            <h3 className="font-display font-bold text-sm text-slate-900">Step 1: Found Item Basics</h3>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Category</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ItemCategory)}
-                className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
               >
                 <option value="electronics">Electronics (Phone, Laptop, Headphones)</option>
                 <option value="id_cards">Campus Cards & ID Badges</option>
@@ -120,47 +116,47 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Item Name / Summary</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Item Title / Summary</label>
               <input
                 type="text"
                 placeholder="e.g. Black Sony Over-Ear Headphones"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Brand (if visible)</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Brand</label>
                 <input
                   type="text"
-                  placeholder="e.g. Sony, Apple, Hydro Flask"
+                  placeholder="e.g. Sony, Apple"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400"
+                  className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Color</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Color</label>
                 <input
                   type="text"
-                  placeholder="e.g. Black, Silver, Navy"
+                  placeholder="e.g. Black, Silver"
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400"
+                  className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Where on campus was it found?</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Where was it found?</label>
               <select
                 value={locationId}
                 onChange={(e) => setLocationId(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
               >
                 {CAMPUS_LOCATIONS.map((loc) => (
                   <option key={loc.id} value={loc.id}>
@@ -170,11 +166,11 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
               </select>
             </div>
 
-            <div className="flex justify-between pt-4 border-t border-emerald-500/20">
+            <div className="flex justify-between pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white"
+                className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800"
               >
                 Cancel
               </button>
@@ -182,7 +178,7 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
                 type="button"
                 disabled={!title.trim()}
                 onClick={() => setStep(2)}
-                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-lime-400 text-slate-950 hover:bg-lime-300 disabled:opacity-50 flex items-center gap-1.5 shadow-glow-lime"
+                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 disabled:opacity-40 shadow-sm flex items-center gap-1.5"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -191,45 +187,46 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
           </div>
         )}
 
+        {/* Step 2 */}
         {step === 2 && (
           <div className="space-y-4 animate-fade-in">
-            <h3 className="font-display font-semibold text-base text-white">Step 2: Safe Public Listing</h3>
+            <h3 className="font-display font-bold text-sm text-slate-900">Step 2: Safe Public Listing</h3>
 
-            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-300 flex items-start gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <span>
-                <strong>Controlled Disclosure Rule:</strong> Do NOT disclose serial numbers, money amounts, or secret contents in the public description so claimants can be tested!
+                <strong>Controlled Disclosure:</strong> Do NOT disclose serial numbers or money amounts publicly so claimants can be verified!
               </span>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Public Safe Description</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Public Description</label>
               <textarea
                 rows={3}
-                placeholder="e.g. Found near desk #14 in the 2nd floor library quiet room."
+                placeholder="e.g. Found on 2nd floor library quiet room desk #14."
                 value={publicDescription}
                 onChange={(e) => setPublicDescription(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400 resize-none"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-600 resize-none font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Public Photo URL (Optional)</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Optional Photo URL</label>
               <input
                 type="url"
                 placeholder="https://images.unsplash.com/..."
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-sm text-white focus:outline-none focus:border-lime-400"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-600"
               />
             </div>
 
-            <div className="flex justify-between pt-4 border-t border-emerald-500/20">
+            <div className="flex justify-between pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1"
+                className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -238,7 +235,7 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
                 type="button"
                 disabled={!publicDescription.trim()}
                 onClick={() => setStep(3)}
-                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-lime-400 text-slate-950 hover:bg-lime-300 disabled:opacity-50 flex items-center gap-1.5 shadow-glow-lime"
+                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 disabled:opacity-40 shadow-sm flex items-center gap-1.5"
               >
                 <span>Finder Verification Setup</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -247,34 +244,35 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
           </div>
         )}
 
+        {/* Step 3 */}
         {step === 3 && (
           <form onSubmit={handleSubmit} className="space-y-4 animate-fade-in">
             <div className="flex items-center justify-between">
-              <h3 className="font-display font-semibold text-base text-white">
-                Step 3: Private Finder Observations (Zero-Knowledge)
+              <h3 className="font-display font-bold text-sm text-slate-900">
+                Step 3: Sealed Observations (Zero-Knowledge)
               </h3>
-              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1">
-                <Lock className="w-3 h-3 text-purple-400" />
-                Sealed Verification
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-lime-400 flex items-center gap-1">
+                <Lock className="w-3 h-3" />
+                Sealed
               </span>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                Private Finder Notes (Only visible to you & Campus Safety Moderator)
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Private Finder Notes (Only visible to you & Campus Safety Desk)
               </label>
               <textarea
                 rows={2}
-                placeholder="e.g. Has a small green sticker on inner band and orange aux cable inside pouch."
+                placeholder="e.g. Has a small green sticker on inner band and orange aux cable in pouch."
                 value={finderPrivateNotes}
                 onChange={(e) => setFinderPrivateNotes(e.target.value)}
-                className="w-full px-4 py-2 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-xs text-white focus:outline-none focus:border-lime-400 resize-none"
+                className="w-full px-3.5 py-2 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-600 resize-none font-medium"
               />
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-emerald-950/60 border border-emerald-500/25 space-y-2">
-              <label className="block text-xs font-bold text-emerald-400">
-                Challenge Question for Potential Claimant
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+              <label className="block text-xs font-bold text-forest-900">
+                Challenge Question for Claimant
               </label>
               <input
                 type="text"
@@ -284,7 +282,7 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
                   updated[0].prompt = e.target.value;
                   setSecretQuestions(updated);
                 }}
-                className="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-emerald-500/20 text-xs text-white"
+                className="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900"
               />
               <input
                 type="text"
@@ -295,23 +293,23 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
                   setSecretQuestions(updated);
                 }}
                 required
-                placeholder="Expected true answer (e.g. octocat sticker and scratch on power button)"
-                className="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-lime-400/30 text-xs text-lime-300 font-medium"
+                placeholder="Expected true answer (e.g. octocat sticker and scratch)"
+                className="w-full px-3 py-1.5 rounded-xl bg-white border border-forest-400 text-xs text-forest-900 font-bold"
               />
             </div>
 
-            <div className="flex justify-between pt-4 border-t border-emerald-500/20">
+            <div className="flex justify-between pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1"
+                className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-400 to-lime-400 text-slate-950 hover:brightness-110 shadow-glow-lime flex items-center gap-1.5"
+                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-md flex items-center gap-1.5"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>Publish Found Report</span>
@@ -320,40 +318,26 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
           </form>
         )}
 
+        {/* Step 4: Done */}
         {step === 4 && createdResult && (
-          <div className="space-y-5 text-center animate-fade-in py-2">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 text-lime-400 flex items-center justify-center mx-auto shadow-glow-lime">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="space-y-4 text-center animate-fade-in py-2">
+            <div className="w-14 h-14 rounded-full bg-emerald-100 text-forest-900 flex items-center justify-center mx-auto shadow-soft">
+              <CheckCircle2 className="w-8 h-8 text-emerald-600" />
             </div>
 
             <div>
-              <h3 className="font-display font-extrabold text-2xl text-white">Found Report Registered!</h3>
-              <p className="text-xs text-slate-300 mt-1">
-                Thank you for helping keep campus honest and safe. Report ID: <span className="font-mono text-lime-400">{createdResult.item.id}</span>
+              <h3 className="font-display font-bold text-xl text-slate-900">Found Report Registered!</h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Report ID: <span className="font-mono font-bold text-forest-900">{createdResult.item.id}</span>
               </p>
             </div>
-
-            {createdResult.matches.length > 0 ? (
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-950 to-lime-950/80 border border-lime-400/40 text-left space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-lime-400 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Compatible Lost Item Found!
-                  </span>
-                  <MatchBadge score={createdResult.matches[0].score} />
-                </div>
-                <p className="text-xs text-slate-200">
-                  A student previously filed a lost report matching this description. The owner will be notified to begin ownership verification!
-                </p>
-              </div>
-            ) : null}
 
             <button
               onClick={() => {
                 onClose();
                 onItemCreated(createdResult.item);
               }}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-lime-400 text-slate-950 hover:bg-lime-300 transition-colors shadow-md"
+              className="w-full py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-sm"
             >
               Done & Return to Feed
             </button>

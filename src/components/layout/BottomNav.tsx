@@ -1,5 +1,5 @@
-import React from 'react';
-import { Compass, Search, Plus, FolderCheck, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+import { Compass, Search, FolderCheck, Shield, Plus, X } from 'lucide-react';
 import { useAppState } from '../../services/stateContext';
 
 interface BottomNavProps {
@@ -10,7 +10,7 @@ interface BottomNavProps {
 
 export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab, openReportModal }) => {
   const { matches, currentUser, switchUserRole } = useAppState();
-  const [showReportPicker, setShowReportPicker] = React.useState(false);
+  const [showReportPicker, setShowReportPicker] = useState(false);
 
   const activeMatchesCount = matches.filter((m) => m.status === 'open').length;
 
@@ -18,18 +18,23 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
     <>
       {showReportPicker && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end justify-center p-4 animate-fade-in"
           onClick={() => setShowReportPicker(false)}
         >
           <div
-            className="w-full max-w-sm glass-panel rounded-3xl p-5 border border-emerald-500/30 text-center animate-slide-up"
+            className="w-full max-w-sm bg-white rounded-3xl p-6 border border-slate-100 shadow-2xl text-center animate-slide-up"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-12 h-1.5 bg-emerald-500/30 rounded-full mx-auto mb-4" />
-            <h3 className="font-display font-bold text-lg text-white mb-1">Create Campus Report</h3>
-            <p className="text-xs text-slate-300 mb-5">
-              Select the appropriate recovery workflow
-            </p>
+            <div className="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4" />
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-display font-bold text-lg text-slate-900">Create Campus Report</h3>
+              <button
+                onClick={() => setShowReportPicker(false)}
+                className="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
             <div className="grid grid-cols-2 gap-3 mb-3">
               <button
@@ -37,13 +42,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
                   setShowReportPicker(false);
                   openReportModal('lost');
                 }}
-                className="p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500/30 hover:border-emerald-400 text-left transition-all hover:scale-[1.02]"
+                className="p-4 rounded-2xl bg-forest-50 border border-forest-200 hover:border-forest-600 text-left transition-all group"
               >
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center mb-2 font-bold">
+                <div className="w-10 h-10 rounded-xl bg-forest-900 text-lime-400 flex items-center justify-center mb-2 font-bold shadow-sm">
                   🔍
                 </div>
-                <div className="font-bold text-sm text-white">Lost Item</div>
-                <div className="text-[11px] text-emerald-400/80 mt-0.5">I misplaced something</div>
+                <div className="font-bold text-sm text-forest-900">Report Lost</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">I misplaced an item</div>
               </button>
 
               <button
@@ -51,54 +56,48 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
                   setShowReportPicker(false);
                   openReportModal('found');
                 }}
-                className="p-4 rounded-2xl bg-gradient-to-br from-emerald-900 to-emerald-950 border border-lime-400/40 hover:border-lime-400 text-left transition-all hover:scale-[1.02] shadow-glow-lime"
+                className="p-4 rounded-2xl bg-lime-50 border border-lime-300 hover:border-lime-500 text-left transition-all group"
               >
-                <div className="w-9 h-9 rounded-xl bg-lime-400 text-slate-950 flex items-center justify-center mb-2 font-bold">
+                <div className="w-10 h-10 rounded-xl bg-forest-900 text-lime-400 flex items-center justify-center mb-2 font-bold shadow-sm">
                   📦
                 </div>
-                <div className="font-bold text-sm text-white">Found Item</div>
-                <div className="text-[11px] text-lime-300/90 mt-0.5">I found someone's item</div>
+                <div className="font-bold text-sm text-forest-900">Report Found</div>
+                <div className="text-[11px] text-slate-600 mt-0.5">I found something</div>
               </button>
             </div>
-
-            <button
-              onClick={() => setShowReportPicker(false)}
-              className="w-full py-2.5 text-xs text-slate-400 hover:text-slate-200 transition-colors"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       )}
 
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-emerald-500/20 px-3 py-2">
-        <div className="flex items-center justify-around relative">
+      {/* Clean White Bottom Nav Bar matching the "After" mockup */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200/80 px-4 py-2 shadow-card">
+        <div className="max-w-md mx-auto flex items-center justify-between">
           <button
             onClick={() => setCurrentTab('home')}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors ${
-              currentTab === 'home' ? 'text-lime-300' : 'text-slate-400 hover:text-slate-200'
+            className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
+              currentTab === 'home' ? 'text-forest-900 font-bold' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
-            <Compass className="w-5 h-5" />
-            <span className="text-[10px] font-medium">Explore</span>
+            <Compass className={`w-5 h-5 ${currentTab === 'home' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[11px]">Home</span>
           </button>
 
           <button
             onClick={() => setCurrentTab('search')}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors ${
-              currentTab === 'search' ? 'text-lime-300' : 'text-slate-400 hover:text-slate-200'
+            className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
+              currentTab === 'search' ? 'text-forest-900 font-bold' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
-            <Search className="w-5 h-5" />
-            <span className="text-[10px] font-medium">Search</span>
+            <Search className={`w-5 h-5 ${currentTab === 'search' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[11px]">Search</span>
           </button>
 
-          {/* Center Floating Plus Button */}
-          <div className="relative -top-5">
+          {/* Plus Report Action Button in Center */}
+          <div className="px-2">
             <button
               onClick={() => setShowReportPicker(true)}
-              className="w-13 h-13 w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-lime-400 text-slate-950 flex items-center justify-center shadow-glow-lime hover:scale-105 active:scale-95 transition-all"
-              aria-label="Report Item"
+              className="w-11 h-11 rounded-full bg-forest-900 text-lime-400 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all"
+              aria-label="Report"
             >
               <Plus className="w-6 h-6 stroke-[3]" />
             </button>
@@ -106,14 +105,14 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
 
           <button
             onClick={() => setCurrentTab('cases')}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl relative transition-colors ${
-              currentTab === 'cases' ? 'text-lime-300' : 'text-slate-400 hover:text-slate-200'
+            className={`flex-1 flex flex-col items-center gap-1 py-1 relative transition-colors ${
+              currentTab === 'cases' ? 'text-forest-900 font-bold' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
-            <FolderCheck className="w-5 h-5" />
-            <span className="text-[10px] font-medium">My Cases</span>
+            <FolderCheck className={`w-5 h-5 ${currentTab === 'cases' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[11px]">My Cases</span>
             {activeMatchesCount > 0 && (
-              <span className="absolute top-0 right-1 w-4 h-4 rounded-full bg-lime-400 text-slate-950 font-bold text-[9px] flex items-center justify-center">
+              <span className="absolute top-0 right-4 w-4 h-4 rounded-full bg-lime-500 text-forest-950 font-bold text-[9px] flex items-center justify-center">
                 {activeMatchesCount}
               </span>
             )}
@@ -126,12 +125,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
               }
               setCurrentTab('moderator');
             }}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors ${
-              currentTab === 'moderator' ? 'text-rose-300' : 'text-slate-400 hover:text-rose-300'
+            className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
+              currentTab === 'moderator' ? 'text-rose-700 font-bold' : 'text-slate-400 hover:text-rose-600'
             }`}
           >
-            <Shield className="w-5 h-5" />
-            <span className="text-[10px] font-medium">Desk</span>
+            <Shield className={`w-5 h-5 ${currentTab === 'moderator' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[11px]">Desk</span>
           </button>
         </div>
       </div>

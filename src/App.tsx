@@ -42,8 +42,8 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#05140f] text-slate-100 selection:bg-lime-400 selection:text-black">
-      {/* Top Navbar */}
+    <div className="min-h-screen flex flex-col bg-[#f8faf9] text-slate-900 selection:bg-lime-400 selection:text-forest-950">
+      {/* Top Navbar matching the After mockup */}
       <Navbar
         currentTab={currentTab}
         setCurrentTab={(tab: any) => {
@@ -56,7 +56,7 @@ const MainApp: React.FC = () => {
       />
 
       {/* Main View Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
         {activeHandoverItemId ? (
           <HandoverScreen
             itemId={activeHandoverItemId}
@@ -100,7 +100,7 @@ const MainApp: React.FC = () => {
         )}
       </main>
 
-      {/* Mobile Persistent Bottom Nav */}
+      {/* Mobile Bottom Nav */}
       <BottomNav
         currentTab={currentTab}
         setCurrentTab={(tab: any) => {

@@ -4,58 +4,48 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        fynd: {
-          950: '#04130e',
-          900: '#07241b',
-          800: '#0d3b2e',
-          700: '#135442',
-          600: '#1b745c',
-          500: '#10b981', // Emerald
-          400: '#34d399',
-          300: '#6ee7b7',
-          200: '#a7f3d0',
-          100: '#d1fae5',
-          50: '#ecfdf5',
+        forest: {
+          950: '#041811',
+          900: '#07281d', // Primary Dark Brand
+          800: '#0c3b2c',
+          700: '#11523e',
+          600: '#176b51',
+          500: '#059669', // Emerald
+          400: '#10b981',
+          100: '#e6f7f0',
+          50: '#f0fdf7',
         },
         lime: {
+          300: '#bef264',
           400: '#a3e635',
-          500: '#84cc16',
+          500: '#84cc16', // Highlight Accent
           600: '#65a30d',
+          100: '#f7fee7',
         },
-        campus: {
-          dark: '#0a1612',
-          surface: '#11221c',
-          elevated: '#172e26',
-          border: 'rgba(52, 211, 153, 0.15)',
+        surface: {
+          DEFAULT: '#ffffff',
+          muted: '#f8faf9',
+          subtle: '#f1f5f3',
+          border: '#e2e8f0',
         }
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
         display: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
       },
+      borderRadius: {
+        '2xl': '18px',
+        '3xl': '24px',
+        '4xl': '32px',
+      },
       boxShadow: {
-        'glow-lime': '0 0 25px -5px rgba(163, 230, 53, 0.35)',
-        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-      },
-      animation: {
-        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'fade-in': 'fadeIn 0.3s ease-out forwards',
-        'slide-up': 'slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(4px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        }
+        'soft': '0 4px 20px -2px rgba(7, 40, 29, 0.05)',
+        'card': '0 6px 24px -4px rgba(7, 40, 29, 0.08)',
+        'floating': '0 10px 30px -5px rgba(7, 40, 29, 0.12)',
+        'glow-lime': '0 0 20px -3px rgba(132, 204, 22, 0.4)',
       }
     },
   },
