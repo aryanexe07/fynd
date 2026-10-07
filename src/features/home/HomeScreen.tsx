@@ -95,7 +95,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
           <Search className="w-4 h-4 text-slate-400 mr-2.5 shrink-0" />
           <input
             type="text"
-            placeholder="Search LeBron, KD16, headphones, laptops..."
+            placeholder="Search laptops, headphones, wallets, keys, cards, bottles..."
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
             className="w-full text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"

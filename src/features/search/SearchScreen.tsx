@@ -66,10 +66,10 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
       {/* Search Header */}
       <div>
         <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">
-          Campus Directory & Marketplace
+          Campus Directory & Case Search
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1">
-          Explore items across campus zones with instant zero-knowledge filters
+          Explore lost and found cases across campus zones with instant zero-knowledge filters
         </p>
       </div>
 
@@ -79,7 +79,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
           <Search className="w-4 h-4 text-slate-400 mr-2.5 shrink-0" />
           <input
             type="text"
-            placeholder="Search LeBron XXI, KD16, Sony, Bellroy, Hydro Flask..."
+            placeholder="Search laptops, headphones, wallets, keys, cards, bottles..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"

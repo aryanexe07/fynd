@@ -110,7 +110,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
             }`}
           >
             <FolderCheck className={`w-5 h-5 ${currentTab === 'cases' ? 'stroke-[2.5]' : 'stroke-2'}`} />
-            <span className="text-[11px]">Cart / Cases</span>
+            <span className="text-[11px]">My Cases</span>
             {activeMatchesCount > 0 && (
               <span className="absolute top-0 right-4 w-4 h-4 rounded-full bg-[#22a36b] text-white font-bold text-[9px] flex items-center justify-center">
                 {activeMatchesCount}
