@@ -11,8 +11,10 @@ import {
   SlidersHorizontal,
   Compass,
   FolderCheck,
-  Plus
+  Plus,
+  LogOut
 } from 'lucide-react';
+import { useAuth } from '../../services/authContext';
 import { CAMPUS_LOCATIONS } from '../../services/mockData';
 
 interface NavbarProps {
@@ -38,6 +40,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     setFilterCampusLocation,
     matches,
   } = useAppState();
+
+  const { signOut } = useAuth();
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
@@ -239,6 +243,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="sm:hidden">Student</span>
                 </>
               )}
+            </button>
+
+            {/* Logout Button */}
+            <button
+              onClick={() => signOut()}
+              className="px-3 py-1.5 rounded-full text-xs font-bold border border-slate-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-slate-600 flex items-center gap-1.5 transition-all shadow-sm"
+              title="Sign out of Supabase"
+              aria-label="Logout"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>
