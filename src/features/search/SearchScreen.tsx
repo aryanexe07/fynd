@@ -63,19 +63,31 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
 
   return (
     <div className="space-y-6 pb-28 max-w-5xl mx-auto animate-fade-in">
-      {/* Search Header */}
-      <div>
-        <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">
-          Campus Directory & Case Search
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
-          Explore lost and found cases across campus zones with instant zero-knowledge filters
-        </p>
+      {/* Search Header with Return Navigation */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">
+            Campus Directory & Case Search
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            Explore lost and found cases across campus zones with instant zero-knowledge filters
+          </p>
+        </div>
+
+        {(query || filterType !== 'all' || filterCategory !== 'all' || filterLocation !== 'all') && (
+          <button
+            onClick={clearFilters}
+            className="self-start sm:self-auto px-4 py-2 rounded-full text-xs font-bold bg-[#e8f7ee] text-[#1c8c5c] hover:bg-[#d8f2e2] transition-colors border border-[#22a36b]/30 flex items-center gap-1.5 shrink-0"
+          >
+            <X className="w-3.5 h-3.5" />
+            <span>Reset All Filters</span>
+          </button>
+        )}
       </div>
 
       {/* Search Box & Controls */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-soft space-y-4">
-        <div className="relative flex items-center bg-[#f5f6f8] rounded-full border border-slate-200 px-4 py-3">
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/80 shadow-soft space-y-4">
+        <div className="relative flex items-center bg-[#f5f6f8] rounded-full border border-slate-200 px-4 py-3 focus-within:border-[#22a36b] transition-colors">
           <Search className="w-4 h-4 text-slate-400 mr-2.5 shrink-0" />
           <input
             type="text"
@@ -85,7 +97,11 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             className="w-full text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"
           />
           {query && (
-            <button onClick={() => setQuery('')} className="text-slate-400 hover:text-slate-600">
+            <button
+              onClick={() => setQuery('')}
+              className="p-1 rounded-full text-slate-400 hover:text-slate-700 transition-colors"
+              title="Clear search"
+            >
               <X className="w-4 h-4" />
             </button>
           )}
@@ -98,7 +114,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value as any)}
-              className="w-full px-3.5 py-2 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b] transition-colors cursor-pointer"
             >
               <option value="all">All Items</option>
               <option value="lost">Lost Only</option>
@@ -111,7 +127,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b] transition-colors cursor-pointer"
             >
               <option value="all">All Categories</option>
               <option value="clothing">Sneakers & Apparel</option>
@@ -129,7 +145,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
             <select
               value={filterLocation}
               onChange={(e) => setFilterLocation(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b] transition-colors cursor-pointer"
             >
               <option value="all">All Zones</option>
               {CAMPUS_LOCATIONS.map((loc) => (
@@ -141,11 +157,11 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Sort</label>
+            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Sort Order</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="w-full px-3.5 py-2 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#22a36b] transition-colors cursor-pointer"
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
@@ -154,60 +170,75 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
         </div>
       </div>
 
-      {/* Results Meta */}
-      <div className="flex items-center justify-between text-xs px-1">
+      {/* Results Meta & Active Filters */}
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs px-1">
         <span className="font-semibold text-slate-600">
-          Showing <span className="font-extrabold text-[#22a36b]">{sortedItems.length}</span> results
+          Showing <span className="font-extrabold text-[#22a36b]">{sortedItems.length}</span> matching cases
         </span>
         {(query || filterType !== 'all' || filterCategory !== 'all' || filterLocation !== 'all') && (
-          <button onClick={clearFilters} className="font-bold text-[#22a36b] hover:text-[#1c8c5c]">
-            Reset Filters
+          <button
+            onClick={clearFilters}
+            className="font-bold text-[#22a36b] hover:text-[#1c8c5c] transition-colors hover:underline"
+          >
+            Clear Filters & Return to All
           </button>
         )}
       </div>
 
       {/* Grid */}
       {sortedItems.length === 0 ? (
-        <div className="rounded-3xl bg-white p-12 text-center border border-slate-100 shadow-soft">
-          <h4 className="font-display font-bold text-base text-slate-800">No items match your criteria</h4>
-          <p className="text-xs text-slate-500 mt-1">Try loosening your search query.</p>
+        <div className="rounded-3xl bg-white p-10 sm:p-14 text-center border border-slate-200/80 shadow-soft space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-[#e8f7ee] text-[#22a36b] flex items-center justify-center mx-auto font-bold">
+            <Search className="w-6 h-6" />
+          </div>
+          <h4 className="font-display font-bold text-base text-slate-800">No cases match your filter criteria</h4>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            Try adjusting your search terms, changing the campus zone, or selecting another category.
+          </p>
+          <button
+            onClick={clearFilters}
+            className="btn-emerald-cta px-5 py-2.5 text-xs font-bold shadow-md"
+          >
+            Return & Reset All Filters
+          </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {sortedItems.map((item) => (
             <div
               key={item.id}
               onClick={() => onSelectItem(item)}
-              className="card-clean p-4 cursor-pointer flex flex-col justify-between group"
+              className="card-clean p-4 cursor-pointer flex flex-col justify-between group hover:border-[#22a36b]/40 hover:-translate-y-1 transition-all duration-200"
             >
               <div>
-                <div className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-[#f4f5f7] mb-3 border border-slate-100 flex items-center justify-center p-3">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 mb-3 border border-slate-100 flex items-center justify-center p-3">
                   <img
                     src={item.imageUrls[0]}
                     alt={item.title}
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 select-none"
                   />
-                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 z-10">
                     <span
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-                        item.type === 'lost' ? 'bg-amber-400 text-slate-950' : 'bg-[#22a36b] text-white'
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${
+                        item.type === 'lost' ? 'bg-amber-400 text-slate-950 font-black' : 'bg-[#22a36b] text-white font-bold'
                       }`}
                     >
                       {item.type}
                     </span>
                     <RiskTierBadge tier={item.riskTier} />
                   </div>
-                  <div className="absolute bottom-2.5 right-2.5">
+                  <div className="absolute bottom-2.5 right-2.5 z-10">
                     <StatusBadge status={item.status} />
                   </div>
                 </div>
 
-                <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-[#22a36b] transition-colors line-clamp-1">
+                <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-[#22a36b] transition-colors line-clamp-1 leading-snug">
                   {item.title}
                 </h4>
 
                 {item.brand && (
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-0.5 truncate">
                     {item.brand} {item.color && `• ${item.color}`}
                   </div>
                 )}
@@ -218,14 +249,14 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ onSelectItem }) => {
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                <div className="flex items-center gap-1 truncate max-w-[170px]">
+                <div className="flex items-center gap-1.5 truncate max-w-[180px]">
                   <MapPin className="w-3.5 h-3.5 text-[#22a36b] shrink-0" />
                   <span className="truncate text-[11px] font-medium">{item.locationName}</span>
                 </div>
 
-                <span className="font-bold text-[#22a36b] group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                <span className="text-[11px] font-bold text-[#22a36b] group-hover:translate-x-0.5 transition-transform flex items-center gap-1 shrink-0">
                   <span>Inspect</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </div>

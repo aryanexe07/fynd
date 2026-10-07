@@ -112,41 +112,21 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({
             />
           </div>
 
-          {/* Type Badge Floating */}
-          <div className="absolute top-2 left-6 flex items-center gap-2">
-            <span
-              className={`px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider ${
-                item.type === 'lost' ? 'bg-amber-400 text-slate-950' : 'bg-[#22a36b] text-white'
-              }`}
-            >
-              {item.type} Item
-            </span>
-            <RiskTierBadge tier={item.riskTier} />
-          </div>
-        </div>
-
-        {/* 2. Signature Emerald Green Curved Wave Transition with Pagination Dots */}
-        <div className="bg-[#22a36b] pt-5 pb-9 px-6 relative rounded-t-[36px] -mb-5">
-          <div className="flex items-center justify-center gap-2">
-            {[0, 1, 2].map((dotIndex) => {
-              const isActive = dotIndex === 0;
-              return (
-                <div
-                  key={dotIndex}
-                  className={`transition-all duration-300 rounded-full ${
-                    isActive
-                      ? 'w-6 h-2 bg-white'
-                      : 'w-2 h-2 bg-white/40'
-                  }`}
-                />
-              );
-            })}
-          </div>
+        {/* Type Badge Floating */}
+        <div className="absolute top-2 left-6 flex items-center gap-2">
+          <span
+            className={`px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider ${
+              item.type === 'lost' ? 'bg-amber-400 text-slate-950 font-black' : 'bg-[#22a36b] text-white font-bold'
+            }`}
+          >
+            {item.type} Item
+          </span>
+          <RiskTierBadge tier={item.riskTier} />
         </div>
       </div>
 
-      {/* 3. Main Details Sheet (Curved Top Sheet) */}
-      <div className="bg-white rounded-t-[36px] rounded-b-3xl p-6 sm:p-8 space-y-6 -mt-4 relative z-10 shadow-card border border-slate-100">
+      {/* 2. Main Details Sheet */}
+      <div className="bg-white rounded-3xl p-6 sm:p-8 space-y-6 mt-4 relative z-10 shadow-card border border-slate-200/80">
         {/* Header: Title, Category & Current Status */}
         <div className="flex items-start justify-between gap-4">
           <div>

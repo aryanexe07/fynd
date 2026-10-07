@@ -3,15 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2384cc16' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/><path d='m11 8 3 3-3 3'/></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="FYND — Find it. Verify it. Return it. The secure, zero-knowledge Campus Lost & Found recovery platform." />
-    <title>FYND — Find it. Verify it. Return it.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#22a36b" />
+    <meta name="color-scheme" content="light" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>FYND — Campus Lost &amp; Found Recovery Platform | Fast, Verified &amp; Zero-Knowledge</title>
+    <meta name="title" content="FYND — Campus Lost &amp; Found Recovery Platform | Fast, Verified &amp; Zero-Knowledge" />
+    <meta name="description" content="FYND is the next-generation campus lost and found network. Find, verify, and return lost belongings through private zero-knowledge cryptographic proof and secure 6-digit handover stations." />
+    <meta name="keywords" content="FYND, campus lost and found, college lost item recovery, student lost items, zero-knowledge verification, campus security, safe item handover" />
+    <meta name="author" content="FYND Campus Network" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fynd-campus.app" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fynd-campus.app/" />
+    <meta property="og:title" content="FYND — Campus Lost &amp; Found Recovery Platform" />
+    <meta property="og:description" content="Find it. Verify it. Return it. Secure campus lost and found with zero-knowledge ownership verification." />
+    <meta property="og:site_name" content="FYND" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://fynd-campus.app/" />
+    <meta name="twitter:title" content="FYND — Campus Lost &amp; Found Recovery Platform" />
+    <meta name="twitter:description" content="Find it. Verify it. Return it. Fast, verified student recovery network." />
+
+    <!-- Apple Web App Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FYND" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Structured Data: JSON-LD Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FYND Campus Lost & Found Platform",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "description": "Secure, zero-knowledge campus lost and found recovery platform with automated matching and verification.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://fynd-campus.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
   </head>
-  <body class="bg-[#f1f5f3] text-slate-900 antialiased selection:bg-lime-400 selection:text-forest-950">
+  <body class="bg-[#f5f6f8] text-slate-900 antialiased selection:bg-lime-400 selection:text-forest-950">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
