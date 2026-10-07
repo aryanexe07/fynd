@@ -44,6 +44,54 @@ export const CAMPUS_LOCATIONS = [
 
 export const INITIAL_ITEMS: Item[] = [
   {
+    id: 'item_lebron_21',
+    type: 'found',
+    category: 'clothing',
+    subcategory: 'Sneakers',
+    title: 'LeBron XXI Queen Conch (Size 12)',
+    brand: 'Nike',
+    color: 'Queen Conch',
+    locationId: 'loc_sports_gym',
+    locationName: 'Recreation Center — Basketball Arena',
+    incidentDate: '2026-10-07T10:15:00Z',
+    approximateTime: '10:15 AM',
+    publicDescription: 'The LeBron XXI has a cabling system that works with Zoom Air cushioning and a light, low-to-the-ground design, giving you agile fluidity and explosiveness without excess weight. Left by bench court 3.',
+    imageUrls: [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80',
+    ],
+    status: 'active',
+    riskTier: 2,
+    reporterId: 'user_marcus_22',
+    reporterName: 'Marcus Vance',
+    hasPrivateEvidence: true,
+    createdAt: '2026-10-07T10:30:00Z',
+    updatedAt: '2026-10-07T10:30:00Z',
+  },
+  {
+    id: 'item_kd_16',
+    type: 'found',
+    category: 'clothing',
+    subcategory: 'Sneakers',
+    title: 'KD16 Wanda (Size 11.5)',
+    brand: 'Nike',
+    color: 'Mint Green',
+    locationId: 'loc_sports_gym',
+    locationName: 'Recreation Center — Locker Room A',
+    incidentDate: '2026-10-07T08:45:00Z',
+    approximateTime: '8:45 AM',
+    publicDescription: 'Mint green lightweight basketball shoes with multi-layer mesh and responsive full-length Air Zoom Strobel cushioning.',
+    imageUrls: [
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1000&q=80',
+    ],
+    status: 'active',
+    riskTier: 2,
+    reporterId: 'mod_sarah_99',
+    reporterName: 'Officer Sarah Jenkins',
+    hasPrivateEvidence: true,
+    createdAt: '2026-10-07T09:00:00Z',
+    updatedAt: '2026-10-07T09:00:00Z',
+  },
+  {
     id: 'item_found_01',
     type: 'found',
     category: 'electronics',
@@ -190,6 +238,32 @@ export const INITIAL_ITEMS: Item[] = [
 ];
 
 export const INITIAL_PRIVATE_EVIDENCE: Record<string, PrivateEvidence> = {
+  item_lebron_21: {
+    itemId: 'item_lebron_21',
+    reporterId: 'user_marcus_22',
+    secretQuestions: [
+      {
+        id: 'q_leb1',
+        prompt: 'What size is printed on the interior tongue tag and what special laces are included?',
+        expectedAnswer: 'Size 12 with extra rose gold metallic aglet laces',
+      },
+    ],
+    finderPrivateNotes: 'Stored in gym manager office basket with orange tag.',
+    createdAt: '2026-10-07T10:30:00Z',
+  },
+  item_kd_16: {
+    itemId: 'item_kd_16',
+    reporterId: 'mod_sarah_99',
+    secretQuestions: [
+      {
+        id: 'q_kd1',
+        prompt: 'Describe any custom insole or initials written inside the heel counter.',
+        expectedAnswer: 'Wanda tribute graphic on left insole and size 11.5',
+      },
+    ],
+    finderPrivateNotes: 'Checked into Safety Locker #2A.',
+    createdAt: '2026-10-07T09:00:00Z',
+  },
   item_found_01: {
     itemId: 'item_found_01',
     reporterId: 'user_marcus_22',

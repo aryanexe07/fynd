@@ -67,19 +67,19 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
             {/* Header */}
             <div className="flex items-start justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-forest-900 text-lime-400 flex items-center justify-center font-bold shadow-sm">
+                <div className="w-10 h-10 rounded-2xl bg-[#22a36b] text-white flex items-center justify-center font-bold shadow-soft">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="font-display font-bold text-lg text-slate-900">Ownership Challenge</h2>
-                  <p className="text-xs text-forest-700 font-medium">Zero-Knowledge Verification</p>
+                  <h2 className="font-display font-extrabold text-lg text-slate-900">Zero-Knowledge Ownership Claim</h2>
+                  <p className="text-xs text-[#22a36b] font-bold">Encrypted Verification Challenge</p>
                 </div>
               </div>
               <RiskTierBadge tier={foundItem.riskTier} />
             </div>
 
             {/* Target Item summary */}
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+            <div className="p-3.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 flex items-center gap-3">
               <img
                 src={foundItem.imageUrls[0]}
                 alt={foundItem.title}
@@ -92,10 +92,10 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
             </div>
 
             {/* Shield Guidance Alert */}
-            <div className="p-3 rounded-2xl bg-forest-50 border border-forest-200 text-xs text-forest-900 flex items-start gap-2">
-              <Lock className="w-4 h-4 text-forest-700 shrink-0 mt-0.5" />
+            <div className="p-3 rounded-2xl bg-[#e8f7ee] border border-[#22a36b]/30 text-xs text-slate-800 flex items-start gap-2">
+              <Lock className="w-4 h-4 text-[#22a36b] shrink-0 mt-0.5" />
               <span>
-                <strong>Zero-Knowledge Rule:</strong> Provide specific details known only to the real owner to prevent false claims.
+                <strong>Zero-Knowledge Verification:</strong> Provide exact details known only to the real owner to ensure safe return.
               </span>
             </div>
 
@@ -112,7 +112,7 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
                     value={answers[q.id] || ''}
                     onChange={(e) => handleAnswerChange(q.id, e.target.value)}
                     required
-                    className="w-full px-3.5 py-2 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-forest-600 resize-none font-medium"
+                    className="w-full px-3.5 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#22a36b] resize-none font-medium"
                   />
                 </div>
               ))}
@@ -138,7 +138,7 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-md flex items-center gap-2 disabled:opacity-50"
+                className="btn-emerald-cta px-6 py-2.5 text-xs disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <span>Evaluating Proof...</span>
@@ -155,28 +155,28 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
           /* Submission Outcome Screen */
           <div className="space-y-5 text-center animate-fade-in py-2">
             {submissionOutcome.passed ? (
-              <div className="w-14 h-14 rounded-full bg-emerald-100 text-forest-900 flex items-center justify-center mx-auto shadow-soft">
-                <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+              <div className="w-16 h-16 rounded-full bg-[#e8f7ee] text-[#22a36b] flex items-center justify-center mx-auto shadow-soft">
+                <CheckCircle2 className="w-10 h-10" />
               </div>
             ) : submissionOutcome.escalated ? (
-              <div className="w-14 h-14 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-soft">
-                <Clock className="w-8 h-8" />
+              <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-soft">
+                <Clock className="w-10 h-10" />
               </div>
             ) : (
-              <div className="w-14 h-14 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center mx-auto">
-                <XCircle className="w-8 h-8" />
+              <div className="w-16 h-16 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center mx-auto">
+                <XCircle className="w-10 h-10" />
               </div>
             )}
 
             <div>
-              <h3 className="font-display font-bold text-xl text-slate-900">
+              <h3 className="font-display font-extrabold text-xl text-slate-900">
                 {submissionOutcome.passed
                   ? 'Ownership Verified!'
                   : submissionOutcome.escalated
                   ? 'Escalated to Moderator Desk'
                   : 'Verification Inconclusive'}
               </h3>
-              <p className="text-xs text-slate-600 mt-1 max-w-sm mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-sm mx-auto leading-relaxed">
                 {submissionOutcome.message}
               </p>
             </div>
@@ -187,7 +187,7 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
                   onClose();
                   onClaimSubmitted(submissionOutcome);
                 }}
-                className="w-full py-3 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-md"
+                className="w-full btn-emerald-cta py-3 text-xs"
               >
                 {submissionOutcome.passed ? 'Proceed to Handover Station' : 'Return to Case'}
               </button>
@@ -198,3 +198,4 @@ export const ClaimChallengeModal: React.FC<ClaimChallengeModalProps> = ({
     </div>
   );
 };
+

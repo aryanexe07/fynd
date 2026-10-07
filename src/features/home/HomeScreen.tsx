@@ -11,7 +11,7 @@ import {
   Map,
   Plus,
   Bookmark,
-  Scale,
+  Footprints,
   Laptop,
   CreditCard,
   Key,
@@ -23,7 +23,8 @@ import {
   Filter,
   Layers,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  Tag
 } from 'lucide-react';
 import { Item, ItemCategory } from '../../types';
 
@@ -55,7 +56,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
   const filteredItems = items.filter((item) => {
     if (activeSegment === 'lost' && item.type !== 'lost') return false;
     if (activeSegment === 'found' && item.type !== 'found') return false;
-    if (item.status === 'recovered') return false; // recovered in archives
+    if (item.status === 'recovered') return false;
     if (filterCampusLocation !== 'all' && item.locationId !== filterCampusLocation) return false;
     if (selectedCategory !== 'all' && item.category !== selectedCategory) return false;
     if (searchKeyword.trim()) {
@@ -77,42 +78,42 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
   });
 
   const categories: Array<{ id: ItemCategory | 'all'; label: string; icon: any }> = [
-    { id: 'all', label: 'All', icon: Layers },
+    { id: 'all', label: 'All Items', icon: Layers },
+    { id: 'clothing', label: 'Sneakers & Apparel', icon: Footprints },
     { id: 'electronics', label: 'Electronics', icon: Laptop },
+    { id: 'bags_wallets', label: 'Bags & Wallets', icon: Briefcase },
+    { id: 'accessories', label: 'Accessories', icon: Tag },
     { id: 'id_cards', label: 'IDs & Passes', icon: CreditCard },
     { id: 'keys', label: 'Keys', icon: Key },
-    { id: 'bags_wallets', label: 'Bags/Wallets', icon: Briefcase },
-    { id: 'clothing', label: 'Clothing', icon: Shirt },
-    { id: 'books_stationery', label: 'Books', icon: BookOpen },
   ];
 
   return (
-    <div className="space-y-5 pb-24 max-w-5xl mx-auto animate-fade-in">
-      {/* 1. Search Bar with Pill Input & Square Accent Filter Button (Exact as Mockup) */}
+    <div className="space-y-6 pb-28 max-w-5xl mx-auto animate-fade-in">
+      {/* 1. Search Bar with Clean Pill Input & Emerald Filter Button */}
       <div className="flex items-center gap-2.5">
-        <div className="flex-1 relative flex items-center bg-white rounded-2xl border border-slate-200/90 px-3.5 py-3 shadow-soft hover:border-forest-600 transition-colors">
+        <div className="flex-1 relative flex items-center bg-white rounded-full border border-slate-200/90 px-4 py-3 shadow-soft hover:border-[#22a36b] transition-colors">
           <Search className="w-4 h-4 text-slate-400 mr-2.5 shrink-0" />
           <input
             type="text"
-            placeholder="Search items, brands, campus locations..."
+            placeholder="Search LeBron, KD16, headphones, laptops..."
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
-            className="w-full text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none"
+            className="w-full text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"
           />
           {searchKeyword && (
             <button
               onClick={() => setSearchKeyword('')}
-              className="text-xs text-slate-400 hover:text-slate-600 px-1"
+              className="text-xs text-slate-400 hover:text-slate-600 px-1 font-bold"
             >
               Clear
             </button>
           )}
         </div>
 
-        {/* Square Filter Button in Forest Green / Lime Theme */}
+        {/* Square / Rounded Filter Button with Emerald Theme */}
         <button
           onClick={onNavigateSearch}
-          className="w-11 h-11 rounded-2xl bg-forest-900 text-lime-400 hover:bg-forest-800 flex items-center justify-center shadow-md transition-all shrink-0"
+          className="w-12 h-12 rounded-2xl bg-slate-900 text-white hover:bg-[#22a36b] flex items-center justify-center shadow-soft transition-all shrink-0 active:scale-95"
           aria-label="Filter"
         >
           <SlidersHorizontal className="w-5 h-5" />
@@ -121,22 +122,22 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
 
       {/* 2. Match Alert (If match exists for student) */}
       {userMatches.length > 0 && (
-        <div className="rounded-2xl bg-gradient-to-r from-forest-900 via-forest-800 to-emerald-900 text-white p-4 shadow-card flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-lime-400 text-forest-950 font-bold flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5" />
+        <div className="rounded-3xl bg-slate-900 text-white p-4 sm:p-5 shadow-card flex items-center justify-between gap-3 border border-slate-800">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-[#22a36b] text-white font-bold flex items-center justify-center shrink-0 shadow-glow-green">
+              <Sparkles className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-extrabold uppercase tracking-wider text-lime-400">
-                  Potential Match Detected
+                <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#34d399]">
+                  Verified Match Found
                 </span>
                 <span className="px-2 py-0.2 rounded-full text-[10px] font-bold bg-white/20 text-white">
-                  {userMatches[0].score}% Confidence
+                  {userMatches[0].score}% Match
                 </span>
               </div>
-              <p className="text-xs text-slate-200 mt-0.5 line-clamp-1">
-                A compatible item was found in the library study zone.
+              <p className="text-xs text-slate-300 mt-0.5 line-clamp-1">
+                A compatible match was located at Main Campus Library Desk.
               </p>
             </div>
           </div>
@@ -146,7 +147,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
               const targetFound = items.find((i) => i.id === userMatches[0].foundItemId);
               if (targetFound) onSelectItem(targetFound);
             }}
-            className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-lime-400 text-forest-950 hover:bg-lime-300 transition-colors shrink-0 flex items-center gap-1 shadow-sm"
+            className="px-4 py-2 rounded-full text-xs font-bold bg-[#22a36b] text-white hover:bg-[#1c8c5c] transition-colors shrink-0 flex items-center gap-1 shadow-sm"
           >
             <span>Review</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -154,8 +155,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
         </div>
       )}
 
-      {/* 3. Circular Category Bar (Exact format as After mockup) */}
-      <div className="space-y-1.5">
+      {/* 3. Circular Category Bar with Emerald Highlights */}
+      <div className="space-y-2">
         <div className="flex items-center gap-4 overflow-x-auto py-2 px-1 scrollbar-none">
           {categories.map((cat) => {
             const Icon = cat.icon;
@@ -172,7 +173,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
                 </div>
                 <span
                   className={`text-[11px] transition-colors ${
-                    isActive ? 'font-bold text-forest-900' : 'text-slate-500 group-hover:text-slate-800'
+                    isActive ? 'font-bold text-slate-900' : 'text-slate-500 group-hover:text-slate-800'
                   }`}
                 >
                   {cat.label}
@@ -183,54 +184,59 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
         </div>
       </div>
 
-      {/* 4. Hero Banner Card (Exact style as After mockup: Deep Forest/Emerald gradient + White CTA button + 3D campus badge) */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-forest-900 via-forest-800 to-emerald-800 p-5 sm:p-6 text-white shadow-card">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-lime-400/20 to-transparent pointer-events-none" />
+      {/* 4. Featured Hero Banner with Emerald Theme */}
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-slate-800 to-[#1c8c5c] p-6 sm:p-7 text-white shadow-card">
+        <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-radial from-[#22a36b]/30 to-transparent pointer-events-none" />
         
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
-          <div className="space-y-1 max-w-md">
-            <span className="text-[11px] font-bold text-lime-400 uppercase tracking-wider">
-              Campus Zero-Knowledge Network
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative z-10">
+          <div className="space-y-1.5 max-w-md">
+            <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider">
+              Zero-Knowledge Campus Protection
             </span>
-            <h2 className="font-display font-bold text-xl sm:text-2xl leading-tight">
-              Report your Item for <span className="text-lime-300 italic">Free</span>
+            <h2 className="font-display font-extrabold text-xl sm:text-2xl leading-tight">
+              Report & Recover Items <span className="text-[#34d399] italic">Instantly</span>
             </h2>
             <p className="text-xs text-slate-200 leading-relaxed">
-              List it on FYND and verify ownership securely without exposing serial numbers.
+              Verify true ownership through private zero-knowledge challenges without exposing serial numbers.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex items-center gap-3">
               <button
                 onClick={() => openReportModal('lost')}
-                className="px-5 py-2.5 rounded-full text-xs font-bold text-forest-950 bg-white hover:bg-lime-50 hover:shadow-glow-lime shadow-md transition-all flex items-center gap-2"
+                className="btn-emerald-cta px-5 py-2.5 text-xs"
               >
                 <span>Report an item</span>
-                <ArrowRight className="w-3.5 h-3.5 text-forest-900" />
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={() => openReportModal('found')}
+                className="px-4 py-2.5 rounded-full text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-all"
+              >
+                Report Found
               </button>
             </div>
           </div>
 
-          {/* Graphic / Tag element on the right (like the house/coin 3D hand in the mockup) */}
-          <div className="hidden sm:flex flex-col items-center justify-center p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center">
-            <div className="w-12 h-12 rounded-xl bg-lime-400 text-forest-950 font-black text-2xl flex items-center justify-center shadow-lg">
+          {/* Graphic / Badge on the right */}
+          <div className="hidden sm:flex flex-col items-center justify-center p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 text-center">
+            <div className="w-12 h-12 rounded-2xl bg-[#22a36b] text-white font-black text-2xl flex items-center justify-center shadow-lg">
               F
             </div>
-            <span className="text-[10px] font-bold text-lime-300 uppercase tracking-wider mt-1.5">
-              Instant Match
+            <span className="text-[10px] font-bold text-[#34d399] uppercase tracking-wider mt-2">
+              Auto Match Engine
             </span>
           </div>
         </div>
       </div>
 
-      {/* 5. Segmented Capsule Toggle (For Rent / For Sale -> All / Lost / Found) + Sort Button */}
+      {/* 5. Segmented Capsule Toggle: All / Lost / Found */}
       <div className="flex items-center justify-between gap-2 pt-1">
-        {/* Rounded Capsule Toggle matching the mockup */}
-        <div className="flex items-center bg-slate-100 p-1 rounded-full border border-slate-200">
+        <div className="flex items-center bg-[#eef1f4] p-1 rounded-full border border-slate-200/80">
           <button
             onClick={() => setActiveSegment('all')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
               activeSegment === 'all'
-                ? 'bg-forest-900 text-lime-400 shadow-sm'
+                ? 'bg-[#22a36b] text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -238,9 +244,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
           </button>
           <button
             onClick={() => setActiveSegment('lost')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
               activeSegment === 'lost'
-                ? 'bg-forest-900 text-lime-400 shadow-sm'
+                ? 'bg-[#22a36b] text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -248,9 +254,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
           </button>
           <button
             onClick={() => setActiveSegment('found')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
               activeSegment === 'found'
-                ? 'bg-forest-900 text-lime-400 shadow-sm'
+                ? 'bg-[#22a36b] text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -258,31 +264,30 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
           </button>
         </div>
 
-        {/* Sort Button with Icon (as shown on the right in mockup) */}
         <button
           onClick={onNavigateSearch}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-forest-600 shadow-soft transition-colors"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-[#22a36b] shadow-soft transition-colors"
         >
-          <SlidersHorizontal className="w-3.5 h-3.5 text-forest-700" />
+          <SlidersHorizontal className="w-3.5 h-3.5 text-[#22a36b]" />
           <span>Filter & Sort</span>
         </button>
       </div>
 
-      {/* 6. Section Header: "Featured Listings" / "Recent Campus Cases" with "See All" */}
-      <div className="space-y-3 pt-2">
+      {/* 6. Section Header: Recent Campus Cases */}
+      <div className="space-y-4 pt-1">
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-bold text-lg text-slate-900">
-            Recent Campus Cases
+          <h3 className="font-display font-extrabold text-lg text-slate-900">
+            Recent Campus Cases & Items
           </h3>
           <button
             onClick={onNavigateSearch}
-            className="text-xs font-bold text-forest-700 hover:text-forest-900 transition-colors"
+            className="text-xs font-bold text-[#22a36b] hover:text-[#1c8c5c] transition-colors"
           >
-            See All
+            See All ({filteredItems.length})
           </button>
         </div>
 
-        {/* 7. Featured Item Cards matching the Modern Mockup card styling */}
+        {/* 7. Featured Item Cards matching the Sneaker / Product Card aesthetic */}
         {filteredItems.length === 0 ? (
           <div className="rounded-3xl bg-white p-12 text-center border border-slate-100 shadow-soft">
             <h4 className="font-display font-bold text-base text-slate-800">No items match your filter</h4>
@@ -293,13 +298,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
                 setActiveSegment('all');
                 setSearchKeyword('');
               }}
-              className="px-4 py-2 rounded-full text-xs font-bold bg-forest-900 text-white"
+              className="px-5 py-2.5 rounded-full text-xs font-bold bg-[#22a36b] text-white"
             >
               Reset Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredItems.map((item) => {
               const itemMatches = matches.filter((m) => m.lostItemId === item.id || m.foundItemId === item.id);
               const topMatch = itemMatches[0];
@@ -309,82 +314,79 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
                 <div
                   key={item.id}
                   onClick={() => onSelectItem(item)}
-                  className="card-clean p-3.5 cursor-pointer flex flex-col justify-between group relative overflow-hidden"
+                  className="card-clean p-4 cursor-pointer flex flex-col justify-between group relative overflow-hidden"
                 >
                   <div>
-                    {/* Card Image with Age Tag + Top Right Action Icons */}
-                    <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 mb-3 border border-slate-100">
+                    {/* Card Image Container with rounded shape & tag */}
+                    <div className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-[#f4f5f7] mb-3 border border-slate-100 flex items-center justify-center p-3">
                       <img
                         src={item.imageUrls[0]}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />
 
-                      {/* Age Pill on Top Left (as shown in mockup: "1 year old" / "Today") */}
+                      {/* Age / Type Pill */}
                       <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/60 backdrop-blur-md text-white">
-                          {new Date(item.incidentDate).toLocaleDateString([], { month: 'short', day: 'numeric' })}
-                        </span>
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                          className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
                             item.type === 'lost'
                               ? 'bg-amber-400 text-slate-950'
-                              : 'bg-emerald-500 text-white'
+                              : 'bg-[#22a36b] text-white'
                           }`}
                         >
                           {item.type}
                         </span>
+                        <RiskTierBadge tier={item.riskTier} />
                       </div>
 
-                      {/* Action Icons on Top Right (Plus, Scale, Heart/Bookmark as in mockup) */}
-                      <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
+                      {/* Bookmark Icon on Top Right */}
+                      <div className="absolute top-2.5 right-2.5">
                         <button
                           onClick={(e) => toggleBookmark(item.id, e)}
-                          className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-black/70 flex items-center justify-center transition-colors"
+                          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md text-slate-700 hover:text-slate-950 flex items-center justify-center shadow-soft transition-colors"
                           title="Bookmark"
                         >
-                          <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-lime-400 text-lime-400' : ''}`} />
+                          <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-[#22a36b] text-[#22a36b]' : ''}`} />
                         </button>
                       </div>
 
-                      {/* Floating "Map 🗺️" Pill at the bottom center of card (exact feature from mockup) */}
+                      {/* Map Pill at bottom center */}
                       <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2">
-                        <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-forest-900/90 backdrop-blur-md text-white flex items-center gap-1 shadow-md border border-white/20">
-                          <Map className="w-3 h-3 text-lime-400" />
+                        <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-slate-900/90 backdrop-blur-md text-white flex items-center gap-1 shadow-md border border-white/10">
+                          <Map className="w-3 h-3 text-[#34d399]" />
                           <span>Campus Map</span>
                         </span>
                       </div>
                     </div>
 
-                    {/* Match Badge if available */}
+                    {/* Match Badge */}
                     {topMatch && (
-                      <div className="mb-1.5">
+                      <div className="mb-2">
                         <MatchBadge score={topMatch.score} classification={topMatch.classification} />
                       </div>
                     )}
 
-                    {/* Title & Brand */}
-                    <h4 className="font-display font-bold text-sm sm:text-base text-slate-900 group-hover:text-forest-700 transition-colors line-clamp-1">
+                    {/* Title & Subtitle */}
+                    <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-[#22a36b] transition-colors line-clamp-1">
                       {item.title}
                     </h4>
 
                     {item.brand && (
-                      <div className="text-xs font-semibold text-forest-700 mt-0.5">
+                      <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">
                         {item.brand} {item.color && `• ${item.color}`}
                       </div>
                     )}
 
-                    {/* Description snippet */}
                     <p className="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
                       {item.publicDescription}
                     </p>
                   </div>
 
-                  {/* Footer Meta: Location with MapPin + Status pill */}
-                  <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                  {/* Footer Meta */}
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1 text-slate-500 truncate max-w-[170px]">
-                      <MapPin className="w-3.5 h-3.5 text-forest-600 shrink-0" />
-                      <span className="truncate text-[11px]">{item.locationName}</span>
+                      <MapPin className="w-3.5 h-3.5 text-[#22a36b] shrink-0" />
+                      <span className="truncate text-[11px] font-medium">{item.locationName}</span>
                     </div>
 
                     <StatusBadge status={item.status} />
@@ -398,3 +400,4 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
     </div>
   );
 };
+

@@ -30,7 +30,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
               <h3 className="font-display font-bold text-lg text-slate-900">Create Campus Report</h3>
               <button
                 onClick={() => setShowReportPicker(false)}
-                className="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200"
+                className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -42,12 +42,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
                   setShowReportPicker(false);
                   openReportModal('lost');
                 }}
-                className="p-4 rounded-2xl bg-forest-50 border border-forest-200 hover:border-forest-600 text-left transition-all group"
+                className="p-4 rounded-2xl bg-amber-50 border border-amber-200 hover:border-amber-400 text-left transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-forest-900 text-lime-400 flex items-center justify-center mb-2 font-bold shadow-sm">
+                <div className="w-10 h-10 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center mb-2 font-bold shadow-sm">
                   🔍
                 </div>
-                <div className="font-bold text-sm text-forest-900">Report Lost</div>
+                <div className="font-bold text-sm text-slate-900">Report Lost</div>
                 <div className="text-[11px] text-slate-500 mt-0.5">I misplaced an item</div>
               </button>
 
@@ -56,12 +56,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
                   setShowReportPicker(false);
                   openReportModal('found');
                 }}
-                className="p-4 rounded-2xl bg-lime-50 border border-lime-300 hover:border-lime-500 text-left transition-all group"
+                className="p-4 rounded-2xl bg-[#e8f7ee] border border-[#22a36b]/30 hover:border-[#22a36b] text-left transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-forest-900 text-lime-400 flex items-center justify-center mb-2 font-bold shadow-sm">
+                <div className="w-10 h-10 rounded-2xl bg-[#22a36b] text-white flex items-center justify-center mb-2 font-bold shadow-sm">
                   📦
                 </div>
-                <div className="font-bold text-sm text-forest-900">Report Found</div>
+                <div className="font-bold text-sm text-slate-900">Report Found</div>
                 <div className="text-[11px] text-slate-600 mt-0.5">I found something</div>
               </button>
             </div>
@@ -69,13 +69,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
         </div>
       )}
 
-      {/* Clean White Bottom Nav Bar matching the "After" mockup */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200/80 px-4 py-2 shadow-card">
+      {/* Clean White Bottom Nav Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 px-4 py-2 shadow-soft">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <button
             onClick={() => setCurrentTab('home')}
             className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
-              currentTab === 'home' ? 'text-forest-900 font-bold' : 'text-slate-400 hover:text-slate-600'
+              currentTab === 'home' ? 'text-[#22a36b] font-bold' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
             <Compass className={`w-5 h-5 ${currentTab === 'home' ? 'stroke-[2.5]' : 'stroke-2'}`} />
@@ -85,7 +85,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
           <button
             onClick={() => setCurrentTab('search')}
             className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
-              currentTab === 'search' ? 'text-forest-900 font-bold' : 'text-slate-400 hover:text-slate-600'
+              currentTab === 'search' ? 'text-[#22a36b] font-bold' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
             <Search className={`w-5 h-5 ${currentTab === 'search' ? 'stroke-[2.5]' : 'stroke-2'}`} />
@@ -96,7 +96,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
           <div className="px-2">
             <button
               onClick={() => setShowReportPicker(true)}
-              className="w-11 h-11 rounded-full bg-forest-900 text-lime-400 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all"
+              className="w-12 h-12 rounded-full bg-[#22a36b] text-white flex items-center justify-center shadow-floating hover:scale-105 active:scale-95 transition-all"
               aria-label="Report"
             >
               <Plus className="w-6 h-6 stroke-[3]" />
@@ -106,13 +106,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
           <button
             onClick={() => setCurrentTab('cases')}
             className={`flex-1 flex flex-col items-center gap-1 py-1 relative transition-colors ${
-              currentTab === 'cases' ? 'text-forest-900 font-bold' : 'text-slate-400 hover:text-slate-600'
+              currentTab === 'cases' ? 'text-[#22a36b] font-bold' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
             <FolderCheck className={`w-5 h-5 ${currentTab === 'cases' ? 'stroke-[2.5]' : 'stroke-2'}`} />
-            <span className="text-[11px]">My Cases</span>
+            <span className="text-[11px]">Cart / Cases</span>
             {activeMatchesCount > 0 && (
-              <span className="absolute top-0 right-4 w-4 h-4 rounded-full bg-lime-500 text-forest-950 font-bold text-[9px] flex items-center justify-center">
+              <span className="absolute top-0 right-4 w-4 h-4 rounded-full bg-[#22a36b] text-white font-bold text-[9px] flex items-center justify-center">
                 {activeMatchesCount}
               </span>
             )}
@@ -137,3 +137,4 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
     </>
   );
 };
+

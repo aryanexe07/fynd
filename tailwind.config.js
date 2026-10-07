@@ -8,46 +8,61 @@ export default {
     extend: {
       colors: {
         forest: {
-          950: '#041811',
-          900: '#07281d', // Primary Dark Brand
-          800: '#0c3b2c',
-          700: '#11523e',
-          600: '#176b51',
-          500: '#059669', // Emerald
-          400: '#10b981',
-          100: '#e6f7f0',
-          50: '#f0fdf7',
+          950: '#091510',
+          900: '#111827', // Clean deep charcoal
+          800: '#1f2937',
+          700: '#1c8c5c',
+          600: '#22a36b', // Vibrant Emerald Brand Green
+          500: '#22a36b', // Main Emerald Brand
+          400: '#34d399',
+          100: '#e8f7ee',
+          50: '#f0fdf4',
+        },
+        emerald: {
+          DEFAULT: '#22a36b',
+          50: '#f0fdf4',
+          100: '#e8f7ee',
+          200: '#c6f3d9',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22a36b',
+          600: '#1c8c5c',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
         },
         lime: {
-          300: '#bef264',
-          400: '#a3e635',
-          500: '#84cc16', // Highlight Accent
-          600: '#65a30d',
-          100: '#f7fee7',
+          300: '#86efac',
+          400: '#22a36b',
+          500: '#22a36b',
+          600: '#1c8c5c',
+          100: '#e8f7ee',
         },
         surface: {
           DEFAULT: '#ffffff',
-          muted: '#f8faf9',
-          subtle: '#f1f5f3',
-          border: '#e2e8f0',
+          muted: '#f5f6f8',
+          subtle: '#eef1f4',
+          border: '#e5e7eb',
         }
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Outfit', 'sans-serif'],
       },
       borderRadius: {
         '2xl': '18px',
         '3xl': '24px',
         '4xl': '32px',
+        '5xl': '40px',
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(7, 40, 29, 0.05)',
-        'card': '0 6px 24px -4px rgba(7, 40, 29, 0.08)',
-        'floating': '0 10px 30px -5px rgba(7, 40, 29, 0.12)',
-        'glow-lime': '0 0 20px -3px rgba(132, 204, 22, 0.4)',
+        'soft': '0 4px 20px -2px rgba(17, 24, 39, 0.05)',
+        'card': '0 8px 30px -4px rgba(17, 24, 39, 0.06)',
+        'floating': '0 14px 35px -5px rgba(34, 163, 107, 0.25)',
+        'glow-green': '0 0 24px -2px rgba(34, 163, 107, 0.35)',
       }
     },
   },
   plugins: [],
 }
+
