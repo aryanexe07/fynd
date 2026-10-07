@@ -8,8 +8,10 @@ import {
   CheckCircle2,
   Lock,
   AlertTriangle,
-  FileCheck
+  FileCheck,
+  Package
 } from 'lucide-react';
+import { PhotoUpload } from '../../components/common/PhotoUpload';
 
 interface ReportFoundScreenProps {
   onClose: () => void;
@@ -29,7 +31,9 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
   const [incidentDate, setIncidentDate] = useState(new Date().toISOString().split('T')[0]);
   const [approximateTime, setApproximateTime] = useState('15:00');
   const [publicDescription, setPublicDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrls, setImageUrls] = useState<string[]>([
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'
+  ]);
   const [riskTier, setRiskTier] = useState<RiskTier>(2);
 
   // Private Finder Observations
@@ -58,7 +62,7 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
       incidentDate,
       approximateTime,
       publicDescription: publicDescription.trim(),
-      imageUrls: imageUrl ? [imageUrl] : [],
+      imageUrls: imageUrls.length > 0 ? imageUrls : ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'],
       riskTier,
       finderPrivateNotes: finderPrivateNotes.trim() || undefined,
       secretQuestions: secretQuestions.filter((q) => q.prompt.trim() && q.expectedAnswer.trim()),
@@ -75,7 +79,7 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-[#22a36b] text-white flex items-center justify-center font-bold shadow-soft">
-              📦
+              <Package className="w-5 h-5 text-white" />
             </div>
             <div>
               <h2 className="font-display font-extrabold text-lg text-slate-900">Report a Found Item</h2>
@@ -211,16 +215,14 @@ export const ReportFoundScreen: React.FC<ReportFoundScreenProps> = ({ onClose, o
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Optional Photo URL</label>
-              <input
-                type="url"
-                placeholder="https://images.unsplash.com/..."
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#22a36b]"
-              />
-            </div>
+            {/* Photo Upload Section for Students */}
+            <PhotoUpload
+              imageUrls={imageUrls}
+              onChange={setImageUrls}
+              maxPhotos={4}
+              label="Upload Found Item Photos for Verification Review"
+              helperText="Upload clear photos of the found item. These will be reviewed by safety desk officers."
+            />
 
             <div className="flex justify-between pt-4 border-t border-slate-100">
               <button

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Search, FolderCheck, Shield, Plus, X } from 'lucide-react';
+import { Compass, Search, FolderCheck, Shield, Plus, X, Package } from 'lucide-react';
 import { useAppState } from '../../services/stateContext';
 
 interface BottomNavProps {
@@ -45,7 +45,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
                 className="p-4 rounded-2xl bg-amber-50 border border-amber-200 hover:border-amber-400 text-left transition-all group"
               >
                 <div className="w-10 h-10 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center mb-2 font-bold shadow-sm">
-                  🔍
+                  <Search className="w-5 h-5 text-amber-400" />
                 </div>
                 <div className="font-bold text-sm text-slate-900">Report Lost</div>
                 <div className="text-[11px] text-slate-500 mt-0.5">I misplaced an item</div>
@@ -59,7 +59,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
                 className="p-4 rounded-2xl bg-[#e8f7ee] border border-[#22a36b]/30 hover:border-[#22a36b] text-left transition-all group"
               >
                 <div className="w-10 h-10 rounded-2xl bg-[#22a36b] text-white flex items-center justify-center mb-2 font-bold shadow-sm">
-                  📦
+                  <Package className="w-5 h-5 text-white" />
                 </div>
                 <div className="font-bold text-sm text-slate-900">Report Found</div>
                 <div className="text-[11px] text-slate-600 mt-0.5">I found something</div>

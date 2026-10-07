@@ -447,7 +447,7 @@ export const StateProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       {
         id: `notif_${Date.now()}`,
         recipientId: handover.claimantId,
-        title: 'Item Officially Recovered! 🎉',
+        title: 'Item Officially Recovered',
         message: 'Handover confirmed successfully. Thank you for using FYND Campus Recovery!',
         type: 'item_recovered',
         linkTarget: handover.itemId,

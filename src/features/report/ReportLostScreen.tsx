@@ -10,9 +10,11 @@ import {
   Lock,
   Plus,
   Trash2,
-  FileCheck
+  FileCheck,
+  Search
 } from 'lucide-react';
 import { MatchBadge } from '../../components/common/Badge';
+import { PhotoUpload } from '../../components/common/PhotoUpload';
 
 interface ReportLostScreenProps {
   onClose: () => void;
@@ -32,7 +34,9 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
   const [incidentDate, setIncidentDate] = useState(new Date().toISOString().split('T')[0]);
   const [approximateTime, setApproximateTime] = useState('14:00');
   const [publicDescription, setPublicDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrls, setImageUrls] = useState<string[]>([
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'
+  ]);
   const [riskTier, setRiskTier] = useState<RiskTier>(2);
 
   // Zero-Knowledge Proof State
@@ -72,7 +76,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
       incidentDate,
       approximateTime,
       publicDescription: publicDescription.trim(),
-      imageUrls: imageUrl ? [imageUrl] : [],
+      imageUrls: imageUrls.length > 0 ? imageUrls : ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'],
       riskTier,
       serialNumber: serialNumber.trim() || undefined,
       secretQuestions: secretQuestions.filter((q) => q.prompt.trim() && q.expectedAnswer.trim()),
@@ -89,7 +93,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center font-bold shadow-soft">
-              🔍
+              <Search className="w-5 h-5 text-amber-400" />
             </div>
             <div>
               <h2 className="font-display font-extrabold text-lg text-slate-900">Report a Lost Item</h2>
@@ -271,16 +275,14 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Optional Photo URL</label>
-              <input
-                type="url"
-                placeholder="https://images.unsplash.com/..."
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#22a36b]"
-              />
-            </div>
+            {/* Student Photo Upload Section for Lost Item */}
+            <PhotoUpload
+              imageUrls={imageUrls}
+              onChange={setImageUrls}
+              maxPhotos={4}
+              label="Upload Item Photos or Receipt for Recovery Verification"
+              helperText="Add photos of the item or original box/receipt to speed up match verification."
+            />
 
             <div className="flex justify-between pt-4 border-t border-slate-100">
               <button

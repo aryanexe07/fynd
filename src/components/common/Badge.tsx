@@ -8,7 +8,7 @@ export const StatusBadge: React.FC<{ status: ItemStatus }> = ({ status }) => {
     claim_pending: { label: 'In Review', bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
     verification: { label: 'Verifying', bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
     handover_pending: { label: 'Handover Ready', bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200' },
-    recovered: { label: 'Recovered ✓', bg: 'bg-[#e8f7ee]', text: 'text-[#22a36b] font-bold', border: 'border-[#22a36b]' },
+    recovered: { label: 'Recovered', bg: 'bg-[#e8f7ee]', text: 'text-[#22a36b] font-bold', border: 'border-[#22a36b]' },
     expired: { label: 'Expired', bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-200' },
     cancelled: { label: 'Cancelled', bg: 'bg-rose-50', text: 'text-rose-600', border: 'border-rose-200' },
     disputed: { label: 'Disputed', bg: 'bg-red-100', text: 'text-red-700', border: 'border-red-300' },

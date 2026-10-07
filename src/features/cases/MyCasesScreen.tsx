@@ -437,8 +437,9 @@ export const MyCasesScreen: React.FC<MyCasesScreenProps> = ({
                   </div>
                 </div>
 
-                <span className="text-xs font-bold text-[#22a36b] bg-[#e8f7ee] px-3 py-1 rounded-full border border-[#22a36b]/30">
-                  Returned ✓
+                <span className="text-xs font-bold text-[#22a36b] bg-[#e8f7ee] px-3 py-1 rounded-full border border-[#22a36b]/30 inline-flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#22a36b]" />
+                  <span>Returned</span>
                 </span>
               </div>
             ))
