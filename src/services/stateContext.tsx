@@ -21,6 +21,7 @@ import {
   INITIAL_AUDIT_LOGS,
 } from './mockData';
 import { generatePotentialMatches, calculateMatchScore } from './matchingEngine';
+import { useAuth } from './authContext';
 
 interface CreateItemInput {
   type: ItemType;
@@ -74,7 +75,29 @@ interface StateContextType {
 const StateContext = createContext<StateContextType | undefined>(undefined);
 
 export const StateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user: authUser } = useAuth();
   const [currentUser, setCurrentUser] = useState<User>(CURRENT_USER);
+
+  // Synchronize authenticated Supabase user profile with application state
+  useEffect(() => {
+    if (authUser) {
+      const email = authUser.email || CURRENT_USER.email;
+      const metadata = authUser.user_metadata || {};
+      const fallbackName = email.split('@')[0];
+      const capitalized = fallbackName ? fallbackName.charAt(0).toUpperCase() + fallbackName.slice(1) : 'Student';
+      const displayName = metadata.displayName || metadata.full_name || capitalized;
+
+      setCurrentUser((prev) => ({
+        ...prev,
+        uid: authUser.id,
+        email: email,
+        displayName: displayName,
+        department: metadata.department || prev.department,
+        studentId: metadata.studentId || prev.studentId,
+      }));
+    }
+  }, [authUser]);
+
   const [items, setItems] = useState<Item[]>(INITIAL_ITEMS);
   const [privateEvidences, setPrivateEvidences] = useState<Record<string, PrivateEvidence>>(INITIAL_PRIVATE_EVIDENCE);
   const [matches, setMatches] = useState<MatchRecord[]>([]);

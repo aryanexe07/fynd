@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AuthProvider } from './services/authContext';
+import { ProtectedRoute } from './features/auth/ProtectedRoute';
 import { StateProvider, useAppState } from './services/stateContext';
 import { Navbar } from './components/layout/Navbar';
 import { BottomNav } from './components/layout/BottomNav';
@@ -149,8 +151,12 @@ const MainApp: React.FC = () => {
 
 export default function App() {
   return (
-    <StateProvider>
-      <MainApp />
-    </StateProvider>
+    <AuthProvider>
+      <StateProvider>
+        <ProtectedRoute>
+          <MainApp />
+        </ProtectedRoute>
+      </StateProvider>
+    </AuthProvider>
   );
 }
