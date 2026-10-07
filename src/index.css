@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,77 +6,103 @@
 
 @layer base {
   :root {
-    --bg-page: #f5f6f8;
+    --bg-page: #f6f7f7;
     --bg-surface: #ffffff;
-    --primary-emerald: #22a36b;
-    --primary-emerald-hover: #1c8c5c;
-    --primary-dark: #111827;
-    --primary-charcoal: #1f2937;
-    --accent-green-light: #e8f7ee;
-    --text-main: #111827;
-    --text-muted: #6b7280;
-    --border-subtle: #e5e7eb;
+    --primary-lime: #9be528;
+    --primary-lime-hover: #8fd820;
+    --lime-light-bg: #d7f789;
+    --lime-light-bg-to: #bdf060;
+    --accent-lime-pill: #eaf9cf;
+    --text-dark: #0f172a;
+    --text-forest: #192b0f;
+    --text-muted: #64748b;
+    --border-subtle: #f0f2f0;
   }
 
   body {
-    background-color: #f5f6f8;
-    color: #111827;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f6f7f7;
+    color: #0f172a;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
-/* Custom app container styling */
-.app-container {
-  max-width: 440px;
-  margin: 0 auto;
-  min-height: 100vh;
-  background-color: #ffffff;
-  box-shadow: 0 0 50px rgba(17, 24, 39, 0.08);
-}
-
-/* Clean rounded card styles matching the design */
-.card-clean {
+/* iOS iPhone squircle card style */
+.ios-card {
   background: #ffffff;
-  border-radius: 24px;
-  border: 1px solid #edf0f3;
-  box-shadow: 0 4px 20px -2px rgba(17, 24, 39, 0.04);
+  border-radius: 28px;
+  border: 1px solid #edf0ee;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-clean:hover {
-  box-shadow: 0 10px 28px -4px rgba(17, 24, 39, 0.08);
-  border-color: #e2e8f0;
+.ios-card:hover {
+  box-shadow: 0 10px 28px -4px rgba(15, 23, 42, 0.07);
+  border-color: #e2e8e0;
 }
 
-/* Iconic Green Action Button */
-.btn-emerald-cta {
-  background-color: #22a36b;
-  color: #ffffff;
-  font-weight: 700;
+/* Hero iOS Lime Card */
+.ios-lime-hero {
+  background: linear-gradient(135deg, #dcf894 0%, #c3ef6d 60%, #b2e854 100%);
+  border-radius: 32px;
+  color: #192b0f;
+  box-shadow: 0 12px 32px -6px rgba(155, 229, 40, 0.28);
+}
+
+/* Primary iOS Lime Action Button */
+.btn-lime-cta {
+  background-color: #9be528;
+  color: #132408;
+  font-weight: 800;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 6px 20px -3px rgba(34, 163, 107, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px -4px rgba(155, 229, 40, 0.45);
 }
 
-.btn-emerald-cta:hover {
-  background-color: #1c8c5c;
-  box-shadow: 0 8px 24px -3px rgba(34, 163, 107, 0.45);
+.btn-lime-cta:hover {
+  background-color: #8fd820;
+  box-shadow: 0 10px 28px -4px rgba(155, 229, 40, 0.6);
   transform: translateY(-1px);
 }
 
-.btn-emerald-cta:active {
-  transform: translateY(0);
+.btn-lime-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Secondary dark button */
+.btn-dark-pill {
+  background-color: #0f172a;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.btn-dark-pill:hover {
+  background-color: #1e293b;
+}
+
+/* Mini circular/squircle icon badge */
+.ios-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 /* Category circle button */
@@ -91,20 +117,53 @@
 }
 
 .category-circle-btn.active {
-  background-color: #22a36b;
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(34, 163, 107, 0.35);
+  background-color: #9be528;
+  color: #132408;
+  box-shadow: 0 8px 20px rgba(155, 229, 40, 0.4);
 }
 
 .category-circle-btn.inactive {
   background-color: #ffffff;
   color: #4b5563;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #edf0ee;
 }
 
 .category-circle-btn.inactive:hover {
-  border-color: #22a36b;
-  color: #22a36b;
+  border-color: #9be528;
+  color: #132408;
+}
+
+/* Card clean legacy alias */
+.card-clean {
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1px solid #edf0ee;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-clean:hover {
+  box-shadow: 0 10px 28px -4px rgba(15, 23, 42, 0.07);
+  border-color: #e2e8e0;
+}
+
+.btn-emerald-cta {
+  background-color: #9be528;
+  color: #132408;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px -4px rgba(155, 229, 40, 0.4);
+}
+
+.btn-emerald-cta:hover {
+  background-color: #8fd820;
+  box-shadow: 0 10px 28px -4px rgba(155, 229, 40, 0.55);
+  transform: translateY(-1px);
 }
 
 /* Custom Scrollbar */
@@ -113,13 +172,12 @@
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #f5f6f8;
+  background: #f6f7f7;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #22a36b;
+  background: #9be528;
 }
-

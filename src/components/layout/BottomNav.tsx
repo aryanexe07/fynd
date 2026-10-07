@@ -69,50 +69,50 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
         </div>
       )}
 
-      {/* Clean White Bottom Nav Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 px-4 py-2 shadow-soft">
+      {/* iOS Floating Dock Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200/60 px-4 pt-2 pb-2 sm:pb-3 shadow-card">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <button
             onClick={() => setCurrentTab('home')}
             className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
-              currentTab === 'home' ? 'text-[#22a36b] font-bold' : 'text-slate-400 hover:text-slate-600'
+              currentTab === 'home' ? 'text-[#192b0f] font-black' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
-            <Compass className={`w-5 h-5 ${currentTab === 'home' ? 'stroke-[2.5]' : 'stroke-2'}`} />
-            <span className="text-[11px]">Home</span>
+            <Compass className={`w-5 h-5 ${currentTab === 'home' ? 'text-[#65a30d] stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[10px] font-bold">Home</span>
           </button>
 
           <button
             onClick={() => setCurrentTab('search')}
             className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
-              currentTab === 'search' ? 'text-[#22a36b] font-bold' : 'text-slate-400 hover:text-slate-600'
+              currentTab === 'search' ? 'text-[#192b0f] font-black' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
-            <Search className={`w-5 h-5 ${currentTab === 'search' ? 'stroke-[2.5]' : 'stroke-2'}`} />
-            <span className="text-[11px]">Search</span>
+            <Search className={`w-5 h-5 ${currentTab === 'search' ? 'text-[#65a30d] stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[10px] font-bold">Search</span>
           </button>
 
-          {/* Plus Report Action Button in Center */}
-          <div className="px-2">
+          {/* Floating Elevated iOS Lime Action Button */}
+          <div className="px-2 -mt-4">
             <button
               onClick={() => setShowReportPicker(true)}
-              className="w-12 h-12 rounded-full bg-[#22a36b] text-white flex items-center justify-center shadow-floating hover:scale-105 active:scale-95 transition-all"
-              aria-label="Report"
+              className="w-13 h-13 rounded-2xl bg-[#9be528] text-[#132408] flex items-center justify-center shadow-lg shadow-[#9be528]/40 hover:scale-105 active:scale-95 transition-all border-2 border-white"
+              aria-label="Create Report"
             >
-              <Plus className="w-6 h-6 stroke-[3]" />
+              <Plus className="w-6 h-6 stroke-[3.5]" />
             </button>
           </div>
 
           <button
             onClick={() => setCurrentTab('cases')}
             className={`flex-1 flex flex-col items-center gap-1 py-1 relative transition-colors ${
-              currentTab === 'cases' ? 'text-[#22a36b] font-bold' : 'text-slate-400 hover:text-slate-600'
+              currentTab === 'cases' ? 'text-[#192b0f] font-black' : 'text-slate-400 hover:text-slate-600'
             }`}
           >
-            <FolderCheck className={`w-5 h-5 ${currentTab === 'cases' ? 'stroke-[2.5]' : 'stroke-2'}`} />
-            <span className="text-[11px]">My Cases</span>
+            <FolderCheck className={`w-5 h-5 ${currentTab === 'cases' ? 'text-[#65a30d] stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[10px] font-bold">My Cases</span>
             {activeMatchesCount > 0 && (
-              <span className="absolute top-0 right-4 w-4 h-4 rounded-full bg-[#22a36b] text-white font-bold text-[9px] flex items-center justify-center">
+              <span className="absolute top-0 right-4 w-4 h-4 rounded-full bg-[#9be528] text-[#132408] font-black text-[9px] flex items-center justify-center shadow-xs">
                 {activeMatchesCount}
               </span>
             )}
@@ -126,13 +126,16 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab,
               setCurrentTab('moderator');
             }}
             className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
-              currentTab === 'moderator' ? 'text-rose-700 font-bold' : 'text-slate-400 hover:text-rose-600'
+              currentTab === 'moderator' ? 'text-rose-700 font-black' : 'text-slate-400 hover:text-rose-600'
             }`}
           >
-            <Shield className={`w-5 h-5 ${currentTab === 'moderator' ? 'stroke-[2.5]' : 'stroke-2'}`} />
-            <span className="text-[11px]">Desk</span>
+            <Shield className={`w-5 h-5 ${currentTab === 'moderator' ? 'text-rose-600 stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[10px] font-bold">Safety Desk</span>
           </button>
         </div>
+
+        {/* iPhone Home Indicator Bar */}
+        <div className="w-28 h-1 bg-slate-300 rounded-full mx-auto mt-1.5 opacity-60" />
       </div>
     </>
   );

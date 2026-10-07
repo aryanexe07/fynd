@@ -120,53 +120,192 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
         </button>
       </div>
 
-      {/* 2. Match Alert (If match exists for student) */}
-      {userMatches.length > 0 && (
-        <div className="rounded-3xl bg-slate-900 text-white p-4 sm:p-5 shadow-card flex items-center justify-between gap-3 border border-slate-800">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-[#22a36b] text-white font-bold flex items-center justify-center shrink-0 shadow-glow-green">
-              <Sparkles className="w-6 h-6" />
+      {/* 1. iOS Lime Hero: Weekly Recovery Progress Card */}
+      <div className="ios-lime-hero p-6 sm:p-7 relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-2 max-w-md">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md text-[11px] font-extrabold text-[#192b0f] shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#4d7c0f]" />
+              <span>Campus Recovery Active</span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#34d399]">
-                  Verified Match Found
-                </span>
-                <span className="px-2 py-0.2 rounded-full text-[10px] font-bold bg-white/20 text-white">
-                  {userMatches[0].score}% Match
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-0.5 line-clamp-1">
-                A compatible match was located at Main Campus Library Desk.
-              </p>
+
+            <h2 className="font-display font-black text-2xl sm:text-3xl text-[#192b0f] tracking-tight leading-tight">
+              Your Campus <br className="hidden sm:inline" />Recovery Progress
+            </h2>
+
+            <p className="text-xs text-[#264215] font-semibold leading-relaxed">
+              Verify true ownership through private zero-knowledge challenges &amp; safe physical handover.
+            </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-2.5">
+              <button
+                onClick={() => openReportModal('lost')}
+                className="px-5 py-2.5 rounded-full bg-[#192b0f] text-[#dcf894] hover:bg-black font-extrabold text-xs shadow-md transition-transform active:scale-95 flex items-center gap-1.5"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Report Lost</span>
+              </button>
+              <button
+                onClick={() => openReportModal('found')}
+                className="px-5 py-2.5 rounded-full bg-white text-[#192b0f] hover:bg-slate-50 font-extrabold text-xs shadow-soft transition-transform active:scale-95"
+              >
+                Report Found
+              </button>
             </div>
           </div>
 
-          <button
-            onClick={() => {
-              const targetFound = items.find((i) => i.id === userMatches[0].foundItemId);
-              if (targetFound) onSelectItem(targetFound);
-            }}
-            className="px-4 py-2 rounded-full text-xs font-bold bg-[#22a36b] text-white hover:bg-[#1c8c5c] transition-colors shrink-0 flex items-center gap-1 shadow-sm"
-          >
-            <span>Review</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      )}
+          {/* Signature iOS Concentric Circular Progress Ring */}
+          <div className="self-center sm:self-auto shrink-0 flex flex-col items-center">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center">
+              {/* Outer SVG Ring Gauge */}
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.4)"
+                  strokeWidth="8"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  fill="none"
+                  stroke="#79cc14"
+                  strokeWidth="8"
+                  strokeDasharray="264"
+                  strokeDashoffset="40"
+                  strokeLinecap="round"
+                />
+              </svg>
 
-      {/* 3. Circular Category Bar with Emerald Highlights & Toggle Return */}
+              {/* Inner White Circle */}
+              <div className="absolute inset-3 rounded-full bg-white shadow-soft flex flex-col items-center justify-center text-center p-2">
+                <span className="font-display font-black text-2xl text-slate-900 leading-none">
+                  {currentUser.stats?.recoveredCount || 6}
+                </span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+                  Recovered
+                </span>
+              </div>
+            </div>
+            <span className="text-[11px] font-extrabold text-[#192b0f] mt-1">
+              100% Safety Score
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Quick Metrics Row: Step to walk / Drink Water 2-card iOS Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Metric 1: Active Cases */}
+        <div className="ios-card p-5 flex items-center justify-between">
+          <div>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+              Campus Cases
+            </span>
+            <div className="flex items-baseline gap-1.5 mt-1">
+              <span className="font-display font-black text-2xl sm:text-3xl text-slate-900">
+                {items.length}
+              </span>
+              <span className="text-xs font-bold text-slate-500">active items</span>
+            </div>
+            <span className="text-[11px] font-semibold text-[#65a30d] mt-1 inline-flex items-center gap-1">
+              <CheckCircle2 className="w-3 h-3" />
+              <span>Real-time matching active</span>
+            </span>
+          </div>
+
+          <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center shrink-0">
+            <Footprints className="w-6 h-6" />
+          </div>
+        </div>
+
+        {/* Metric 2: Live Verified Matches */}
+        <div className="ios-card p-5 flex items-center justify-between">
+          <div>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+              Match Engine
+            </span>
+            <div className="flex items-baseline gap-1.5 mt-1">
+              <span className="font-display font-black text-2xl sm:text-3xl text-slate-900">
+                {matches.length}
+              </span>
+              <span className="text-xs font-bold text-slate-500">pairs detected</span>
+            </div>
+            <span className="text-[11px] font-semibold text-[#65a30d] mt-1 inline-flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              <span>High confidence candidates</span>
+            </span>
+          </div>
+
+          <div className="w-12 h-12 rounded-2xl bg-[#eaf9cf] text-[#4d7c0f] border border-[#d7f789] flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+        </div>
+      </div>
+
+      {/* 3. iOS Timeline / Calendar Capsule Strip */}
+      <div className="ios-card p-5 space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="font-display font-extrabold text-sm sm:text-base text-slate-900">
+            October 2026
+          </h3>
+          <div className="flex items-center gap-1.5">
+            <button
+              className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold transition-colors"
+              aria-label="Previous week"
+            >
+              ‹
+            </button>
+            <button
+              className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold transition-colors"
+              aria-label="Next week"
+            >
+              ›
+            </button>
+          </div>
+        </div>
+
+        {/* 7-Day Capsule Row */}
+        <div className="grid grid-cols-7 gap-1.5 sm:gap-2 text-center">
+          {[
+            { day: 'S', date: '04' },
+            { day: 'M', date: '05' },
+            { day: 'T', date: '06' },
+            { day: 'W', date: '07', isToday: true },
+            { day: 'T', date: '08' },
+            { day: 'F', date: '09' },
+            { day: 'S', date: '10' },
+          ].map((col) => (
+            <div
+              key={col.date}
+              className={`py-2 px-1 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+                col.isToday
+                  ? 'bg-[#dcf894] text-[#192b0f] font-black shadow-xs ring-1 ring-[#c3ef6d]'
+                  : 'hover:bg-slate-100 text-slate-600 font-bold'
+              }`}
+            >
+              <span className="text-[10px] uppercase">{col.day}</span>
+              <span className="text-xs sm:text-sm font-extrabold">{col.date}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 4. Circular Category Bar with iOS Highlight */}
       <div className="space-y-2">
         <div className="flex items-center justify-between px-1">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-            Categories
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            Explore Categories
           </span>
           {selectedCategory !== 'all' && (
             <button
               onClick={() => setSelectedCategory('all')}
-              className="text-xs font-bold text-[#22a36b] hover:text-[#1c8c5c] transition-colors flex items-center gap-1"
+              className="text-xs font-bold text-[#65a30d] hover:text-[#4d7c0f] transition-colors"
             >
-              <span>Reset Category</span>
+              Reset Category
             </button>
           )}
         </div>
@@ -188,7 +327,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
                 </div>
                 <span
                   className={`text-[11px] transition-colors whitespace-nowrap ${
-                    isActive ? 'font-bold text-slate-900' : 'text-slate-500 group-hover:text-slate-800'
+                    isActive ? 'font-extrabold text-slate-900' : 'text-slate-500 group-hover:text-slate-800 font-semibold'
                   }`}
                 >
                   {cat.label}
@@ -199,40 +338,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
         </div>
       </div>
 
-      {/* 4. Featured Hero Banner with Clean Non-Glitch Theme */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-[#1c8c5c] p-6 sm:p-7 text-white shadow-card">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative z-10">
-          <div className="space-y-1.5 max-w-lg">
-            <span className="text-[11px] font-extrabold text-[#34d399] uppercase tracking-wider">
-              Zero-Knowledge Campus Protection
-            </span>
-            <h2 className="font-display font-extrabold text-xl sm:text-2xl leading-tight">
-              Report & Recover Items <span className="text-[#34d399] italic">Instantly</span>
-            </h2>
-            <p className="text-xs text-slate-200 leading-relaxed">
-              Verify true ownership through private zero-knowledge challenges without exposing serial numbers.
-            </p>
-
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <button
-                onClick={() => openReportModal('lost')}
-                className="btn-emerald-cta px-5 py-2.5 text-xs"
-              >
-                <span>Report Lost Item</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={() => openReportModal('found')}
-                className="px-4 py-2.5 rounded-full text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-all border border-white/20"
-              >
-                Report Found Item
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 5. Segmented Capsule Toggle: All / Lost / Found + Active Filter Return Bar */}
+      {/* 5. Segmented Capsule Toggle: All / Lost / Found */}
       <div className="space-y-3 pt-1">
         <div className="flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center bg-[#eef1f4] p-1 rounded-full border border-slate-200/80">
@@ -240,7 +346,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
               onClick={() => setActiveSegment('all')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                 activeSegment === 'all'
-                  ? 'bg-[#22a36b] text-white shadow-sm'
+                  ? 'bg-[#192b0f] text-[#dcf894] shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -250,29 +356,29 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectItem, openReport
               onClick={() => setActiveSegment('lost')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                 activeSegment === 'lost'
-                  ? 'bg-[#22a36b] text-white shadow-sm'
+                  ? 'bg-[#192b0f] text-[#dcf894] shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Lost
+              Lost Only
             </button>
             <button
               onClick={() => setActiveSegment('found')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                 activeSegment === 'found'
-                  ? 'bg-[#22a36b] text-white shadow-sm'
+                  ? 'bg-[#192b0f] text-[#dcf894] shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Found
+              Found Only
             </button>
           </div>
 
           <button
             onClick={onNavigateSearch}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-[#22a36b] shadow-soft transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-[#9be528] shadow-soft transition-colors"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-[#22a36b]" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#65a30d]" />
             <span>Advanced Search</span>
           </button>
         </div>
