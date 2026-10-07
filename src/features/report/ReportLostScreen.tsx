@@ -24,7 +24,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
   const [step, setStep] = useState<number>(1);
 
   // Form State
-  const [category, setCategory] = useState<ItemCategory>('electronics');
+  const [category, setCategory] = useState<ItemCategory>('clothing');
   const [title, setTitle] = useState('');
   const [brand, setBrand] = useState('');
   const [color, setColor] = useState('');
@@ -39,7 +39,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
   const [serialNumber, setSerialNumber] = useState('');
   const [secretQuestions, setSecretQuestions] = useState<Array<{ prompt: string; expectedAnswer: string }>>([
     {
-      prompt: 'What distinctive sticker, scratch, or lock screen wallpaper is present?',
+      prompt: 'What distinctive sticker, scratch, or size/marking is present?',
       expectedAnswer: '',
     },
   ]);
@@ -88,18 +88,18 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-forest-900 text-lime-400 flex items-center justify-center font-bold shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center font-bold shadow-soft">
               🔍
             </div>
             <div>
-              <h2 className="font-display font-bold text-lg text-slate-900">Report a Lost Item</h2>
-              <p className="text-xs text-forest-700 font-medium">Campus Zero-Knowledge Recovery</p>
+              <h2 className="font-display font-extrabold text-lg text-slate-900">Report a Lost Item</h2>
+              <p className="text-xs text-[#22a36b] font-bold">Campus Zero-Knowledge Recovery</p>
             </div>
           </div>
 
           {step < 5 && (
             <div className="flex items-center gap-1 text-xs font-bold text-slate-400">
-              <span className="text-forest-900">Step {step}</span>
+              <span className="text-[#22a36b]">Step {step}</span>
               <span>/</span>
               <span>4</span>
             </div>
@@ -109,58 +109,58 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         {/* Step 1 */}
         {step === 1 && (
           <div className="space-y-4 animate-fade-in">
-            <h3 className="font-display font-bold text-sm text-slate-900">Step 1: Item Category & Basics</h3>
+            <h3 className="font-display font-extrabold text-sm text-slate-900">Step 1: Item Category & Basics</h3>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ItemCategory)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-bold focus:outline-none focus:border-[#22a36b]"
               >
+                <option value="clothing">Sneakers & Apparel (LeBron, KD16, Hoodies)</option>
                 <option value="electronics">Electronics (Laptop, Phone, Headphones)</option>
                 <option value="id_cards">IDs & Campus Passes</option>
                 <option value="keys">Keys & Fobs</option>
                 <option value="bags_wallets">Bags, Wallets & Backpacks</option>
-                <option value="clothing">Clothing & Apparel</option>
-                <option value="books_stationery">Books, Calculators & Stationery</option>
-                <option value="accessories">Jewelry, Watches, Glasses & Bottles</option>
+                <option value="books_stationery">Books & Calculators</option>
+                <option value="accessories">Watches, Glasses & Bottles</option>
                 <option value="other">Other Item</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Item Title / Model</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Item Title / Model</label>
               <input
                 type="text"
-                placeholder="e.g. Sony WH-1000XM4 Headphones"
+                placeholder="e.g. LeBron XXI Queen Conch / Sony WH-1000XM4"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#22a36b]"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Brand</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Brand</label>
                 <input
                   type="text"
-                  placeholder="e.g. Sony, Apple"
+                  placeholder="e.g. Nike, Apple, Sony"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#22a36b]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Color</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Color</label>
                 <input
                   type="text"
-                  placeholder="e.g. Black, Silver"
+                  placeholder="e.g. Black, Queen Conch, Jade"
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#22a36b]"
                 />
               </div>
             </div>
@@ -177,7 +177,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
                 type="button"
                 disabled={!title.trim()}
                 onClick={() => setStep(2)}
-                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 disabled:opacity-40 shadow-sm flex items-center gap-1.5"
+                className="btn-emerald-cta px-6 py-2.5 text-xs disabled:opacity-40"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -189,14 +189,14 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         {/* Step 2 */}
         {step === 2 && (
           <div className="space-y-4 animate-fade-in">
-            <h3 className="font-display font-bold text-sm text-slate-900">Step 2: Campus Zone & Time</h3>
+            <h3 className="font-display font-extrabold text-sm text-slate-900">Step 2: Campus Zone & Time</h3>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Last Seen Location</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Last Seen Location</label>
               <select
                 value={locationId}
                 onChange={(e) => setLocationId(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-bold focus:outline-none focus:border-[#22a36b]"
               >
                 {CAMPUS_LOCATIONS.map((loc) => (
                   <option key={loc.id} value={loc.id}>
@@ -208,22 +208,22 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Date</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Date</label>
                 <input
                   type="date"
                   value={incidentDate}
                   onChange={(e) => setIncidentDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#22a36b]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Time</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Time</label>
                 <input
                   type="time"
                   value={approximateTime}
                   onChange={(e) => setApproximateTime(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-forest-600"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#22a36b]"
                 />
               </div>
             </div>
@@ -240,7 +240,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-sm flex items-center gap-1.5"
+                className="btn-emerald-cta px-6 py-2.5 text-xs"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -252,33 +252,33 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         {/* Step 3 */}
         {step === 3 && (
           <div className="space-y-4 animate-fade-in">
-            <h3 className="font-display font-bold text-sm text-slate-900">Step 3: Public Safe Description</h3>
+            <h3 className="font-display font-extrabold text-sm text-slate-900">Step 3: Public Safe Description</h3>
 
-            <div className="p-3 rounded-2xl bg-forest-50 border border-forest-200 text-xs text-forest-900 flex items-start gap-2">
-              <ShieldAlert className="w-4 h-4 text-forest-700 shrink-0 mt-0.5" />
-              <span>Keep distinguishing stickers, scratch marks, and serial numbers for Step 4!</span>
+            <div className="p-3 rounded-2xl bg-[#e8f7ee] border border-[#22a36b]/30 text-xs text-slate-800 flex items-start gap-2">
+              <ShieldAlert className="w-4 h-4 text-[#22a36b] shrink-0 mt-0.5" />
+              <span>Keep distinguishing size tags, scratch marks, and serial numbers for Step 4!</span>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Public Description</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Public Description</label>
               <textarea
                 rows={3}
-                placeholder="e.g. Left on desk near window on 2nd floor library."
+                placeholder="e.g. Left near locker room or quiet study area."
                 value={publicDescription}
                 onChange={(e) => setPublicDescription(e.target.value)}
                 required
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-600 resize-none font-medium"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#22a36b] resize-none font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Optional Photo URL</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Optional Photo URL</label>
               <input
                 type="url"
                 placeholder="https://images.unsplash.com/..."
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-600"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#22a36b]"
               />
             </div>
 
@@ -295,7 +295,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
                 type="button"
                 disabled={!publicDescription.trim()}
                 onClick={() => setStep(4)}
-                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 disabled:opacity-40 shadow-sm flex items-center gap-1.5"
+                className="btn-emerald-cta px-6 py-2.5 text-xs disabled:opacity-40"
               >
                 <span>Setup Private Proof</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -308,25 +308,25 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         {step === 4 && (
           <form onSubmit={handleSubmit} className="space-y-4 animate-fade-in">
             <div className="flex items-center justify-between">
-              <h3 className="font-display font-bold text-sm text-slate-900">
+              <h3 className="font-display font-extrabold text-sm text-slate-900">
                 Step 4: Zero-Knowledge Private Evidence
               </h3>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-lime-400 flex items-center gap-1">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-[#34d399] flex items-center gap-1">
                 <Lock className="w-3 h-3" />
                 Never Public
               </span>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Serial Number / IMEI (Optional)
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                Serial Number / SKU (Optional)
               </label>
               <input
                 type="text"
                 placeholder="e.g. S01-9982412-B"
                 value={serialNumber}
                 onChange={(e) => setSerialNumber(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-900 focus:outline-none focus:border-forest-600 font-bold"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 text-xs font-mono text-slate-900 focus:outline-none focus:border-[#22a36b] font-bold"
               />
             </div>
 
@@ -336,7 +336,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
                 <button
                   type="button"
                   onClick={handleAddQuestion}
-                  className="text-xs text-forest-700 hover:text-forest-900 font-bold flex items-center gap-1"
+                  className="text-xs text-[#22a36b] hover:text-[#1c8c5c] font-bold flex items-center gap-1"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Question</span>
@@ -344,9 +344,9 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
               </div>
 
               {secretQuestions.map((q, idx) => (
-                <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div key={idx} className="p-3.5 rounded-2xl bg-[#f5f6f8] border border-slate-200 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-forest-900">Challenge #{idx + 1}</span>
+                    <span className="text-xs font-bold text-[#22a36b]">Challenge #{idx + 1}</span>
                     {secretQuestions.length > 1 && (
                       <button
                         type="button"
@@ -366,7 +366,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
                       updated[idx].prompt = e.target.value;
                       setSecretQuestions(updated);
                     }}
-                    className="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 font-medium"
                   />
 
                   <input
@@ -379,7 +379,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
                     }}
                     required
                     placeholder="Secret true answer (stored encrypted)"
-                    className="w-full px-3 py-1.5 rounded-xl bg-white border border-forest-400 text-xs text-forest-900 font-bold"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#22a36b]/60 text-xs text-[#22a36b] font-bold"
                   />
                 </div>
               ))}
@@ -396,7 +396,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-md flex items-center gap-1.5"
+                className="btn-emerald-cta px-6 py-2.5 text-xs"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>Publish Lost Report</span>
@@ -408,14 +408,14 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
         {/* Step 5: Success */}
         {step === 5 && createdResult && (
           <div className="space-y-4 text-center animate-fade-in py-2">
-            <div className="w-14 h-14 rounded-full bg-emerald-100 text-forest-900 flex items-center justify-center mx-auto shadow-soft">
-              <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+            <div className="w-16 h-16 rounded-full bg-[#e8f7ee] text-[#22a36b] flex items-center justify-center mx-auto shadow-soft">
+              <CheckCircle2 className="w-10 h-10" />
             </div>
 
             <div>
-              <h3 className="font-display font-bold text-xl text-slate-900">Report Published!</h3>
+              <h3 className="font-display font-extrabold text-xl text-slate-900">Report Published!</h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                Case <span className="font-mono font-bold text-forest-900">{createdResult.item.id}</span> is active.
+                Case <span className="font-mono font-bold text-[#22a36b]">{createdResult.item.id}</span> is active and matching.
               </p>
             </div>
 
@@ -424,7 +424,7 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
                 onClose();
                 onItemCreated(createdResult.item);
               }}
-              className="w-full py-2.5 rounded-full text-xs font-bold bg-forest-900 text-lime-400 hover:bg-forest-800 shadow-sm"
+              className="w-full btn-emerald-cta py-3 text-xs"
             >
               Done & View Report
             </button>
@@ -434,3 +434,4 @@ export const ReportLostScreen: React.FC<ReportLostScreenProps> = ({ onClose, onI
     </div>
   );
 };
+
